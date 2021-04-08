@@ -1,6 +1,6 @@
 import csv
 from csv import DictWriter
-import split
+#import split
 
 def loadData(filename):
     data = open(filename, "r")
