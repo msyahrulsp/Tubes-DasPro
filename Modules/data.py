@@ -1,5 +1,6 @@
 import csv
 from csv import DictWriter
+import split
 
 def loadData(filename):
     data = open(filename, "r")
@@ -20,6 +21,5 @@ def appendData(filename,field_names,mydict):
     data.close()
 
 
-#for i in loadData('Data/gadget.csv'):
- #   print (i)
+
 

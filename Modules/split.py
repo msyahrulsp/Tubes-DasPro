@@ -1,4 +1,4 @@
-def split(line,delim):
+def split(line,delim=','):
     s=[]
     j=0
     for i in range (len(line)):
