@@ -7,11 +7,16 @@ import loadData,register,login
 
 #usersession store user's id and user's name // debatable
 
-def main(): 
+def main(data): 
+    print(data[0])
     return
 
 if __name__ == '__main__':
     usersession = login.login()
-    datas = loadData.LoadData(usersession)
-    main()
+    if usersession == '0' :
+        print("Your username is inccorent") 
+    elif usersession == '1':
+        print("Your password is incorrect")
+    else :
+        main(loadData.LoadData(usersession))
     

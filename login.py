@@ -3,6 +3,8 @@ from Modules import data,hash,split
 # if error = 0, it means the username is not registered in the database 
 # if error = 1, it means that the password is incorrect
 
+# need to fix the login ssystem, it should return the user's id
+
 
 def login():
     users = ''.join(str(p) for p in data.loadData('Data/user.csv'))

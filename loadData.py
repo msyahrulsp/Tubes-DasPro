@@ -10,3 +10,5 @@ from Modules import data
 def LoadData(usersession): 
     return [usersession,data.loadData('Data/consumable.csv'),data.loadData('Data/gadget.csv')]
 
+
+
