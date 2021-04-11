@@ -7,8 +7,8 @@ from Modules import data
 
 #usersession store user's id and user's name // debatable
 
-def LoadData(usersession): 
-    return [usersession,data.loadData('Data/consumable.csv'),data.loadData('Data/gadget.csv')]
+def LoadData(usersession,folder): 
+    return [usersession,data.loadData(f'{folder}/consumable.csv'),data.loadData(f'{folder}/gadget.csv')]
 
 
 

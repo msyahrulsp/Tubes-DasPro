@@ -7,13 +7,14 @@ from Modules import data,hash,split
 
 
 def login():
-    users = ''.join(str(p) for p in data.loadData('Data/user.csv'))
-    #print(users)
-    #print(users)
-    username = input("Masukan Username : ")
-    if username not in users : return '0'
-    password = hash.Hash(input("Masukan Password : "))
-    if password not in users : return '1'
-    return username
+    users = data.loadData('Data/user.csv')#''.join(data.loadData('Data/user.csv'))
+    username = input('Username : ')
+    for i in users[1:]: 
+        userdata = split.split(i)
+        if username == userdata[1] :
+            if hash.Hash(input('Password : ')) == userdata[4]:
+                print(f'Hallo {userdata[1]}! Selamat datang di Kantong Ajaib')
+                return userdata[0]
+            return '1'
+    return '0'
     
-
