@@ -24,7 +24,8 @@ def register():
     if isUsernameUnique(username,mydata) is True: return '0' # if the return value, that means that the username is not unique, thus we will not continue the registration
     password = hash.Hash(input('Masukan password : '))
     alamat = input('Masukan alamat : ')
-    mydata.append(f'{uid},{username},{nama},{alamat},{password},0\n')
+    mydata.append(f'{uid};{username};{nama};{alamat};{password};0\n')
     print(mydata)
     data.saveData('Data/user.csv',''.join(mydata))
  
+register()

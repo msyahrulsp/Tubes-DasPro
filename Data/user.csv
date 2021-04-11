@@ -1,4 +1,6 @@
-id,username,nama,alamat,password,role
-1,admin,remek,remek,wjrjp,0
-2,nulgath,tiroi,jalan kencana,szqlfymjkl,0
-3,admin,admin,admin,firns,40
+id;username;nama;alamat;password;role
+1;admin;remek;remek;wjrjp;0
+2;nulgath;tiroi;jalan kencana;szqlfymjkl;0
+3;admin;admin;admin;firns;40
+4;superuser;superuser;superuser;xzujwzxjw;0
+5;remedi;remedi;remedi;wjrjin;0

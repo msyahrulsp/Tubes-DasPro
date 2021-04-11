@@ -1,4 +1,4 @@
-def split(txt,case=','):
+def split(txt,case=';'):
     s=[]
     j=0
     for i in range (len(txt)):

@@ -1,1 +1,1 @@
-id,id_peminjam,id_gadget,tanggal_pengembalian,inibuatbonus
+id;id_peminjam;id_gadget;tanggal_pengembalian;inibuatbonus
