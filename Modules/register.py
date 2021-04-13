@@ -1,10 +1,4 @@
-from Modules import hash,data,split
-
-
-#role
-
-# 0 = user biasa
-# >40 administrator
+from Util import hash,split
 
 #set unique id to id, but how????
 
@@ -16,10 +10,10 @@ def isUsernameUnique(username,data):
         if split.split(i)[1] == username: return True
     return False
 
-def register(): 
-    mydata = data.loadData('Data/user.csv')
+def register(data): 
+    mydata = data
     uid = len(mydata)
-    nama = input('Masukan nama : ')
+    nama = input('Masukan nama : ').title() # Awal huruf tiap kata besar
     username = input('Masukan username : ')
     if isUsernameUnique(username,mydata) is True: 
         print('Username sudah ada di dalam database, mohon untuk login menggunakan username tersebut')
@@ -28,6 +22,6 @@ def register():
     alamat = input('Masukan alamat : ')
     mydata.append(f'{uid};{username};{nama};{alamat};{password};0\n')
     print(f'User {username} telah berhasil register ke dalam Kantong Ajaib')
-    data.saveData('Data/user.csv',''.join(mydata))
+    # data.saveData('Data/user.csv',''.join(mydata)) # Gk autosave
  
 
