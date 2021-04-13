@@ -1,24 +1,22 @@
-from Util import split
-# from Modules import split,data
-
 def searchByID(data,id):
-    for i in data:
-        if split.split(i)[0] == id : return True
+    for x in data:
+        if x[0] == id : return True
     return False 
 
 def searchByRarity(data,request):
     state = True
-    for i in data:
-        newdata = split.split(i)
+    print("\nHasil pencarian: \n")
+    for x in data:
+        newdata = x
         if newdata[4] == request : 
             state = False
             print(f'Nama            : {newdata[1]} ')
             print(f'deskripsi       : {newdata[2]} ')
             print(f'jumlah          : {newdata[3]} ')
             print(f'rarity          : {newdata[4]} ')
-            print(f'tahun ditemukan : {newdata[5]} ')
+            print(f'tahun ditemukan : {newdata[5]} \n')
     if state :
-        print('Tidak ada gadget ditemukan')
+        print('Tidak ada gadget ditemukan\n')
 
 #ex pengunaan : 
 '''
@@ -27,34 +25,35 @@ searchByRarity(consumable,'S')
 
 def searchByYear(data,request,type):
     state = True
-    for i in data:
-        newdata = split.split(i)
+    print("\nHasil pencarian: \n")
+    for x in data:
+        newdata = x
         if type == '=':
-            state = False
             if int(newdata[5]) == request : 
+                state = False
                 print(f'Nama            : {newdata[1]} ')
                 print(f'deskripsi       : {newdata[2]} ')
                 print(f'jumlah          : {newdata[3]} ')
                 print(f'rarity          : {newdata[4]} ')
-                print(f'tahun ditemukan : {newdata[5]} ')  
+                print(f'tahun ditemukan : {newdata[5]} \n')  
         if type == '>' :
-            state = False
             if int(newdata[5]) > request : 
+                state = False
                 print(f'Nama            : {newdata[1]} ')
                 print(f'deskripsi       : {newdata[2]} ')
                 print(f'jumlah          : {newdata[3]} ')
                 print(f'rarity          : {newdata[4]} ')
-                print(f'tahun ditemukan : {newdata[5]} ')      
+                print(f'tahun ditemukan : {newdata[5]} \n')      
         if type == '<':
-            state = False
-            if int(newdata[5]) < request : 
+            if int(newdata[5]) < request :
+                state = False
                 print(f'Nama            : {newdata[1]} ')
                 print(f'deskripsi       : {newdata[2]} ')
                 print(f'jumlah          : {newdata[3]} ')
                 print(f'rarity          : {newdata[4]} ')
-                print(f'tahun ditemukan : {newdata[5]} ')
+                print(f'tahun ditemukan : {newdata[5]} \n')
     if state :
-        print('Tidak ada gadget ditemukan')
+        print('Tidak ada gadget ditemukan\n')
 
 # ex penggunaan : 
 '''

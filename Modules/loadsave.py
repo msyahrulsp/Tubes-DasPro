@@ -1,10 +1,15 @@
 import os
+from Util.split import split
 
 def load(filename):
-    data = open(filename, "r")
-    lines = data.readlines()
-    data.close()
-    return lines[1:] # expected output is in array
+    # Load diganti dari sebelumnya karena banyak "\n" kalau pake readlines
+    temp = [] 
+    with open(filename, "r") as f:
+        for line in f:
+            line = line.replace("\n", "")
+            line = split(line)
+            temp.append(line)
+    return temp[1:]
 
 def loadData(folder):
     tempdata = []
