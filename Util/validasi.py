@@ -6,16 +6,13 @@ def validFolder(folder):
             return True
         return False
 
-def validCmd(cmd, role): # Masih buggy
+def validCmd(cmd, role):
     # 0 = Not Found
     # 1 = No Access
     # 2 = True
     adminCmd = ["register", "tambahitem", "hapusitem", "ubahjumlah", "riwayatpinjam", "riwayatkembali", "riwayatambil"]
     bothCmd = ["carirarity", "caritahun", "save", "help", "exit"]
     userCmd = ["pinjam", "kembalikan", "minta"]
-
-    # print(cmd)
-    # print(role)
 
     if (role == "admin"):
         if (cmd in adminCmd) or (cmd in bothCmd):

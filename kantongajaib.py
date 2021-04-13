@@ -1,6 +1,8 @@
 import argparse
 from Modules.loadsave import loadData
 from Modules.login import login
+from Modules.register import register
+from Modules.search import searchByRarity, searchByYear
 from Util.validasi import validFolder, validCmd
 
 def main():
@@ -13,17 +15,23 @@ def main():
         exit()
 
     consumable, consumable_hist, gadget, gadget_b_hist, gadget_r_hist, user = loadData(args.folder)
-    role = str(login(user))
+    id, role = login(user)
 
     while True:
         cmd = input(">>> ").lower().replace(" ", "").replace("_", "")
-        if validCmd(cmd, role) == 2: # Masih harus di fix
+        if validCmd(cmd, role) == 2:
             if (cmd == "register"):
-                print("register")
+                newUser = register(user)
+                if (newUser != ['0']):
+                    user.append(newUser)
+                print(user)
             elif (cmd == "carirarity"):
-                print("carirarity")
+                rarity = input("Masukkan rarity: ")
+                searchByRarity(gadget, rarity)
             elif (cmd == "caritahun"):
-                print("caritahun")
+                year = int(input("Masukkan tahun: "))
+                cat = input("Masukkan kategori: ")
+                searchByYear(gadget, year, cat)
             elif (cmd == "tambahitem"):
                 print("tambahitem")
             elif (cmd == "hapusitem"):
