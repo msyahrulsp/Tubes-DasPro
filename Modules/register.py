@@ -6,8 +6,13 @@ def isUsernameUnique(username,data):
     return False
 
 def register(data): 
-    mydata = data
-    uid = int(mydata[len(mydata)-1][0]) + 1 # Ngambil Index dari last elemen (should be otomatis unique)
+    mydata = data[1:]
+
+    if len(mydata)  == 0:
+        uid = '1'
+    else:     
+        uid = str(int(mydata[len(mydata)-1][0]) + 1) # Ngambil Index dari last elemen (should be otomatis unique)
+
     nama = input('Masukan nama : ').title() # Awal huruf tiap kata besar
     username = input('Masukan username : ')
 
@@ -18,7 +23,5 @@ def register(data):
 
     password = hash.Hash(input('Masukan password : '))
     alamat = input('Masukan alamat : ')
-    # mydata.append(f'{uid};{username};{nama};{alamat};{password};user')
-    print(f'User {username} telah berhasil register ke dalam Kantong Ajaib')
+    print(f'\nUser {username} telah berhasil register ke dalam Kantong Ajaib')
     return([uid, username, nama, alamat, password, "user"])
-    # data.saveData('Data/user.csv',''.join(mydata)) # Gk autosave
