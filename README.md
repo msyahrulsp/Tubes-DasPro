@@ -2,7 +2,7 @@
 
 How to Start?
 ```python
-python kantongajaib.py
+python kantongajaib.py <folder_data>
 ```
 
 Used Library
