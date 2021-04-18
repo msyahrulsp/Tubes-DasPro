@@ -8,6 +8,7 @@ from Modules.search import searchByRarity, searchByYear
 from Modules.transaction import borrowGadget, returnGadget, getConsumable
 from Util.validasi import validFolder, validCmd
 from Modules.add import addConsumable,addGadget
+from Modules.delete import delItem
 
 def main(data):
     consumable, consumable_hist, gadget, gadget_b_hist, gadget_r_hist, user = data
@@ -52,8 +53,13 @@ def main(data):
                 else : print('Gagal menambahkan karena id tidak valid')
 
             elif (cmd == "hapusitem"):
-                print("hapusitem")
-
+                itemid = input('Masukan Index       : ')
+                if itemid[0] == 'G':
+                        gadget = delItem(gadget,itemid)
+                elif itemid[0] == 'C':
+                        consumable = delItem(consumable,itemid)
+                else : print('id tidak valid')
+            
             elif (cmd == "ubahjumlah"):
                 print("ubahjumlah")
 

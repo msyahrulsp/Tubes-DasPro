@@ -1,4 +1,4 @@
-import search
+from Modules import search
 
 def addGadget(data,id):
     if search.searchByID(data,id):
