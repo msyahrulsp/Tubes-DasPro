@@ -10,7 +10,7 @@ def addGadget(data,id):
     rare = input("Masukan Rarity               : ")
     year = input("Masukan Tahun Ditemukan      : ")
     print('Item telah berhasil ditambahkan ke database')
-    return data.append([len(data),nama,desc,jlh,rare,year])
+    return data.append([id,nama,desc,jlh,rare,year])
 
 
 def addConsumable(data,id):
@@ -22,5 +22,5 @@ def addConsumable(data,id):
     jlh = input("Masukan Jumlah               : ")
     rare = input("Masukan Rarity               : ")
     print('Item telah berhasil ditambahkan ke database')
-    return data.append([len(data),nama,desc,jlh,rare])
+    return data.append([id,nama,desc,jlh,rare])
 
