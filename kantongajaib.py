@@ -7,6 +7,7 @@ from Modules.register import register
 from Modules.search import searchByRarity, searchByYear
 from Modules.transaction import borrowGadget, returnGadget, getConsumable
 from Util.validasi import validFolder, validCmd
+from Modules.add import addConsumable,addGadget
 
 def main(data):
     consumable, consumable_hist, gadget, gadget_b_hist, gadget_r_hist, user = data
@@ -42,8 +43,13 @@ def main(data):
                 cat = input("Masukkan kategori: ")
                 searchByYear(gadget, year, cat)
 
-            elif (cmd == "tambahitem"):
-                print("tambahitem")
+            elif (cmd == "tambahitem"): #masih dalam perbaikan, kudu di cek duls gan
+                itemid = input('Masukan Index       : ')
+                if itemid[0] == 'G':
+                        gadget = addGadget(gadget,itemid)
+                elif itemid[0] == 'C':
+                        consumable = addConsumable(consumable,itemid)
+                else : print('Gagal menambahkan karena id tidak valid')
 
             elif (cmd == "hapusitem"):
                 print("hapusitem")
