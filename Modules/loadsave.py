@@ -21,7 +21,7 @@ def loadData(folder):
     return tempdata # Matriks data data yang ada headernya
 
 def saveData(data):
-    files = ["consumable", "consumable_history", "gadget", "gadget_borrow_history", "gadget_return_history", "user"]
+    files = ["consumable", "consumable_history", "gadget", "gadget_borrow_history", "gadget_return_history", "inventory", "user"]
     # Buat sekarang, folder belum ada validasi buat format tertentu
     folder = input("Masukkan nama folder penyimpanan: ") # Folder apa ada format tertenu??
 

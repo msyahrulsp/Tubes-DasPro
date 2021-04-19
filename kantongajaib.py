@@ -5,11 +5,12 @@ from Modules.keluar import keluar
 from Modules.login import login
 from Modules.register import register
 from Modules.search import searchByRarity, searchByYear
-from Modules.transaction import borrowGadget, returnGadget, getConsumable
+from Modules.gadget import borrowGadget, returnGadget
+from Modules.consumable import getConsumable
 from Util.validasi import validFolder, validCmd
 
 def main(data):
-    consumable, consumable_hist, gadget, gadget_b_hist, gadget_r_hist, user = data
+    consumable, consumable_hist, gadget, gadget_b_hist, gadget_r_hist, inventory, user = data
     id, role = login(user)
 
     while (role == "1") or (role == "0"): # Validasi login
@@ -52,14 +53,13 @@ def main(data):
                 print("ubahjumlah")
 
             elif (cmd == "pinjam"):
-                gadget, gadget_b_hist = borrowGadget(gadget, gadget_b_hist, id)
+                inventory, gadget, gadget_b_hist = borrowGadget(inventory, gadget, gadget_b_hist, id)
 
             elif (cmd == "kembalikan"):
-                # returnGadget(gadget_b_hist, id)
-                print("Panggil returnGadget")
+                inventory, gadget, gadget_r_hist = returnGadget(inventory, gadget_b_hist, id, inventory)
 
             elif (cmd == "minta"):
-                consumable, consumable_hist = getConsumable(consumable, consumable_hist, id)
+                inventory, consumable, consumable_hist = getConsumable(inventory, consumable, consumable_hist, id)
 
             elif (cmd == "riwayatpinjam"):
                 print("riwayatpinjam")
@@ -71,23 +71,25 @@ def main(data):
                 print("riwayatambil")
 
             elif (cmd == "save"):
-                data = [consumable, consumable_hist, gadget, gadget_b_hist, gadget_r_hist, user]
+                data = [consumable, consumable_hist, gadget, gadget_b_hist, gadget_r_hist, inventory, user]
                 saveData(data)
 
             elif (cmd == "help"):
                 print("help")
 
             elif (cmd == "exit"):
-                data = [consumable, consumable_hist, gadget, gadget_b_hist, gadget_r_hist, user]
-                keluar(data)
-
-            input("\nTekan ENTER untuk lanjut")
-            system("cls")
+                data = [consumable, consumable_hist, gadget, gadget_b_hist, gadget_r_hist, inventory, user]
+                keluar(data, "cmd")
 
         elif validCmd(cmd, role) == 1:
             print("Anda tidak memiliki akses untuk command ini!")
+            print("Silahkan gunakan perintah \"help\" untuk mengetahui anda bisa mengakses command apa saja")
         else:
             print("Command tidak ditemukan")
+            print("Silahkan gunakan perintah \"help\" untuk mengetahui anda bisa menggunakan command apa saja")
+
+        input("\nTekan ENTER untuk lanjut")
+        system("cls")
 
 try:
     system("cls")
@@ -104,5 +106,10 @@ try:
 
     main(temp)
 except KeyboardInterrupt: # Bakal aktif kalau pake CTRL + C
+    # For some reason, ini bisa ngambil latest data dari variabel yang ada di main
+    # Jadi tolong jangan diapa2in xdd
+
+    # Tapi sabi dicoba coba buat mainin CTRL + C terus save dan liat
+    # apa data yang dah dimasukin sebelum CTRL + C ikut ke save
     data = temp
-    keluar(data)
+    keluar(data, "key")

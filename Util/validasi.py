@@ -27,7 +27,7 @@ def validCmd(cmd, role):
         return 1
     return 0
 
-def validId(data, id): # Cek validasi sekalian return idx kalau true
+def getId(data, id): # Cek validasi sekalian return idx kalau true
     for i in range(1, len(data)):
         if data[i][0] == id : return i
     return -1 
