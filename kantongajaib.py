@@ -59,9 +59,10 @@ def main(data):
             elif (cmd == "hapusitem"):
                 itemid = input('Masukan Index       : ')
                 if itemid[0] == 'G':
-                        gadget = delItem(gadget,itemid)
+                        tempdata = [gadget, deleted]
+                        gadget, deleted = delItem(tempdata,itemid, "gadget")
                 elif itemid[0] == 'C':
-                        consumable = delItem(consumable,itemid)
+                        consumable = delItem(consumable,itemid, "consumable")
                 else : print('id tidak valid')
             
             elif (cmd == "ubahjumlah"):
