@@ -50,8 +50,6 @@ def main(data):
                 itemid = input('Masukan Id      : ')
                 if itemid[0] == 'G':
                         gadget = addGadget(gadget,itemid)
-                        print(gadget)
-                        input()
                 elif itemid[0] == 'C':
                         consumable = addConsumable(consumable,itemid)
                 else : print('Gagal menambahkan karena id tidak valid')
