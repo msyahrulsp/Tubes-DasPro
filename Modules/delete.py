@@ -10,7 +10,7 @@ def delItem(data, id, type):
     for i in range(len(item)):
         datasplit=item[i]
         if datasplit[0] == id:
-            opsi = input(f"Apakah anda yakin ingin menghapus {datasplit[1]} (Y/N)?").lower()
+            opsi = input(f"Apakah anda yakin ingin menghapus {datasplit[1]} (Y/N)? ").lower()
             if opsi == 'y':
                 print("\nItem telah berhasil dihapus dari database")
                 if type == "gadget":
@@ -20,6 +20,12 @@ def delItem(data, id, type):
                     return item, deleted
                 item.pop(i)
                 return item
+            elif opsi != "n":
+                print("\nInput invalid")
+             
+            if type == "gadget":
+                return item, deleted
+            return item
 
     print(f"\nTidak ada item dengan id: {id}")
 

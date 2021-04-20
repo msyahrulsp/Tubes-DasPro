@@ -46,7 +46,7 @@ def main(data):
                 searchByYear(gadget, year, cat)
 
             elif (cmd == "tambahitem"): #masih dalam perbaikan, kudu di cek duls gan
-                itemid = input('Masukan Index       : ')
+                itemid = input('Masukan ID: ')
                 if itemid[0] == 'G':
                         gadget = addGadget(gadget,itemid)
                 elif itemid[0] == 'C':
@@ -54,7 +54,7 @@ def main(data):
                 else : print('Gagal menambahkan karena id tidak valid')
 
             elif (cmd == "hapusitem"):
-                itemid = input('Masukan Index       : ')
+                itemid = input('Masukan ID Item: ')
                 if itemid[0] == 'G':
                         tempdata = [gadget, deleted]
                         gadget, deleted = delItem(tempdata,itemid, "gadget")
