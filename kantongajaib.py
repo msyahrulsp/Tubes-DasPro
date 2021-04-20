@@ -1,5 +1,6 @@
 import argparse
 from os import system
+import os
 from Modules.loadsave import loadData, saveData
 from Modules.keluar import keluar
 from Modules.login import login
@@ -15,7 +16,7 @@ def main(data):
     id, role = login(user)
 
     while (role == "1") or (role == "0"): # Validasi login
-        system("cls")
+        system("clear")
         if (role == "0"): # Username tidak terdaftar
             print("Username tidak terdaftar\n")
         else: # Error = 1, password salah
@@ -23,9 +24,10 @@ def main(data):
         id, role = login(user)
 
     input("\nTekan ENTER untuk lanjut")
-    system("cls")
+    system("clear")
 
     while True:
+        print("Pilihan : ")
         cmd = input(">>> ").lower().replace(" ", "").replace("_", "")
 
         if validCmd(cmd, role) == 2:
@@ -45,9 +47,11 @@ def main(data):
                 searchByYear(gadget, year, cat)
 
             elif (cmd == "tambahitem"): #masih dalam perbaikan, kudu di cek duls gan
-                itemid = input('Masukan Index       : ')
+                itemid = input('Masukan Id      : ')
                 if itemid[0] == 'G':
                         gadget = addGadget(gadget,itemid)
+                        print(gadget)
+                        input()
                 elif itemid[0] == 'C':
                         consumable = addConsumable(consumable,itemid)
                 else : print('Gagal menambahkan karena id tidak valid')
@@ -94,7 +98,7 @@ def main(data):
                 keluar(data)
 
             input("\nTekan ENTER untuk lanjut")
-            system("cls")
+            system("clear")
 
         elif validCmd(cmd, role) == 1:
             print("Anda tidak memiliki akses untuk command ini!")
@@ -102,14 +106,15 @@ def main(data):
             print("Command tidak ditemukan")
 
 try:
-    system("cls")
+    system("clear")
     parser = argparse.ArgumentParser(usage="python kantongajaib.py <nama_folder>") # Error messagenya masih belum custom
     parser.add_argument("folder")
     args = parser.parse_args()
 
     if not validFolder(args.folder):
-        print("Folder yang anda masukkan tidak ada!")
-        exit()
+       # print(args.folder in os.walk('Data', topdown=True))
+       print(f"{args.folder}Folder yang anda masukkan tidak ada!")
+       exit()
 
     temp = loadData(args.folder) # Ngeload file dari folder yang dah dimasukin pas ngejalanin
     # Catetan : ini nge load pake header, jadi kalau mau make, di slice dlu index 0nya

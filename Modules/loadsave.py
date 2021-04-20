@@ -13,11 +13,10 @@ def load(filename):
 
 def loadData(folder):
     tempdata = []
-    path = ".\Data\%s" % folder
-    for (root, dirs, files) in os.walk(path, topdown=True):
-        for x in files:
-            a = load("./Data/%s/%s" % (folder, x))
-            tempdata.append(a)
+    files = ["consumable", "consumable_history", "gadget", "gadget_borrow_history", "gadget_return_history", "user"]
+    for pep in files:
+        a = load(f"./Data/{folder}/{pep}.csv")
+        tempdata.append(a)
     return tempdata # Matriks data data yang ada headernya
 
 def saveData(data):
@@ -25,13 +24,13 @@ def saveData(data):
     # Buat sekarang, folder belum ada validasi buat format tertentu
     folder = input("Masukkan nama folder penyimpanan: ") # Folder apa ada format tertenu??
 
-    if not os.path.exists(".\Data\%s" % folder):
-        os.makedirs(".\Data\%s" % folder)
+    if not os.path.exists("./Data/%s" % folder):
+        os.makedirs("./Data/%s" % folder)
 
     print("Saving...")
 
     for i in range(len(files)): # Saving ke respective filenya
-        path = ".\Data\%s\%s.csv" % (folder, files[i])
+        path = "./Data/%s/%s.csv" % (folder, files[i])
         with open(path, "w") as f:
             for x in data[i]:
                 temp = ";".join(map(str, x))
