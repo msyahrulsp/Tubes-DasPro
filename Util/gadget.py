@@ -1,21 +1,20 @@
 from Util.validasi import getId
 
-def checkGadget(invent, idg, userid): # Fungsi buat ngecek user lagi minjem gadget atau enggak
-    for i in range(len(invent)):
-        if (invent[i][0] == userid) and (invent[i][2] == idg):
-            return False
+def checkGadget(datah, idg, userid): # Fungsi buat ngecek user lagi minjem gadget atau enggak
+    for i in range(len(datah)):
+        if (datah[i][1] == userid) and (datah[i][2] == idg):
+            jmlh = datah[i][4]
+            jmlh_r = datah[i][5]
+            if (jmlh != jmlh_r):
+                return False
     return True
 
-def userGadget(userid, data):
+def userGadget(datah, userid):
     temp = []
 
-    idx = getId(data, userid)
-
-    for i in range(1, len(data)):
-        for i in range(1, len(data)):
-            if data[i][1] == userid:
-                data[i].append(i) # Nambah index buat inget kemambilnya di index keberapa di inventory.csv
-                data[i].append(idx) # Nambah index gadget di gadget.csv
-                temp.append(data[i])
+    for i in range(1, len(datah)):
+        if (datah[i][1] == userid): 
+            if (datah[i][4] != datah[i][5]):
+                temp.append(datah[i])
 
     return temp

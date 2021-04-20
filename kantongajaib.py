@@ -10,7 +10,7 @@ from Modules.consumable import getConsumable
 from Util.validasi import validFolder, validCmd
 
 def main(data):
-    consumable, consumable_hist, gadget, gadget_b_hist, gadget_r_hist, inventory, user = data
+    consumable, consumable_hist, deleted, gadget, gadget_b_hist, gadget_r_hist, user = data
     id, role = login(user)
 
     while (role == "1") or (role == "0"): # Validasi login
@@ -27,7 +27,7 @@ def main(data):
     while True:
         cmd = input(">>> ").lower().replace(" ", "").replace("_", "")
 
-        if validCmd(cmd, role) == 2:
+        if validCmd(cmd, role) == 2: # User punya akses ke cmd
 
             if (cmd == "register"):
                 newUser = register(user)
@@ -53,13 +53,13 @@ def main(data):
                 print("ubahjumlah")
 
             elif (cmd == "pinjam"):
-                inventory, gadget, gadget_b_hist = borrowGadget(inventory, gadget, gadget_b_hist, id)
+                gadget, gadget_b_hist = borrowGadget(gadget, gadget_b_hist, id)
 
             elif (cmd == "kembalikan"):
-                inventory, gadget, gadget_r_hist = returnGadget(inventory, gadget_b_hist, id, inventory)
+                gadget, gadget_b_hist, gadget_r_hist, deleted = returnGadget(gadget, gadget_b_hist, gadget_r_hist, deleted, id)
 
             elif (cmd == "minta"):
-                inventory, consumable, consumable_hist = getConsumable(inventory, consumable, consumable_hist, id)
+                consumable, consumable_hist = getConsumable(consumable, consumable_hist, id)
 
             elif (cmd == "riwayatpinjam"):
                 print("riwayatpinjam")
@@ -71,21 +71,22 @@ def main(data):
                 print("riwayatambil")
 
             elif (cmd == "save"):
-                data = [consumable, consumable_hist, gadget, gadget_b_hist, gadget_r_hist, inventory, user]
+                data = [consumable, consumable_hist, deleted, gadget, gadget_b_hist, gadget_r_hist, user]
                 saveData(data)
 
             elif (cmd == "help"):
                 print("help")
 
             elif (cmd == "exit"):
-                data = [consumable, consumable_hist, gadget, gadget_b_hist, gadget_r_hist, inventory, user]
+                data = [consumable, consumable_hist, deleted, gadget, gadget_b_hist, gadget_r_hist, user]
                 keluar(data, "cmd")
 
-        elif validCmd(cmd, role) == 1:
-            print("Anda tidak memiliki akses untuk command ini!")
+        elif validCmd(cmd, role) == 1: # User gk ada akses
+            print("\nAnda tidak memiliki akses untuk command ini!")
             print("Silahkan gunakan perintah \"help\" untuk mengetahui anda bisa mengakses command apa saja")
-        else:
-            print("Command tidak ditemukan")
+
+        else: # Command gk ada di list
+            print("\nCommand tidak ditemukan")
             print("Silahkan gunakan perintah \"help\" untuk mengetahui anda bisa menggunakan command apa saja")
 
         input("\nTekan ENTER untuk lanjut")
@@ -97,7 +98,7 @@ try:
     parser.add_argument("folder")
     args = parser.parse_args()
 
-    if not validFolder(args.folder):
+    if not validFolder(args.folder): # Folder harus ada di path Data/
         print("Folder yang anda masukkan tidak ada!")
         exit()
 

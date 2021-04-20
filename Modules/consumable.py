@@ -1,6 +1,6 @@
 from Util.validasi import getId, validDate, validQty
 
-def getConsumable(invent, datacs, datah, userid):
+def getConsumable(datacs, datah, userid):
     # datacs = list consumable
     # datah = list history minta consumable
     # userid = ngambil dari hasil login
@@ -9,21 +9,24 @@ def getConsumable(invent, datacs, datah, userid):
 
     if idx == -1:
         print("Consumable dengan ID tersebut tidak ada")
-        # return datacs, datah
     else:
-        qty = input("Jumlah peminjaman: ")
+
+        qty = input("Jumlah: ")
         if not (validQty(datacs, qty, idx)):
-            print("Jumlah yang anda minta melebihi stok yang kami punya")
-            # return datacs, datah
+            if(datacs[idx][3] == 0):
+                print("%s sedang tidak ada stok" % datacs[idx][1])
+            else:
+                print("\n%s hanya ada %s" % (datacs[idx][1], datacs[idx][3]))
         elif int(qty) <= 0:
             print("Jumlah yang dimasukkan harus lebih dari 0")
-            # return datacs, datah
+            
         else:
-            date = input("Tanggal peminjaman (DD/MM/YYYY): ")
+            date = input("Tanggal permintaan (DD/MM/YYYY): ")
             if not (validDate(date)):
                 print("Tanggal yang anda masukkan tidak valid")
-                # return datacs, datah
+
             else:
+                # Auto id buat cons_hist
                 if len(datah)-1 == 0:
                     id = "1"
                 else:
@@ -31,7 +34,6 @@ def getConsumable(invent, datacs, datah, userid):
 
                 print("\nItem %s (x%s) telah berhasil diambil!" % (datacs[idx][1], qty))
                 datacs[idx][3] = str(int(datacs[idx][3]) - int(qty)) # Ngurangin jumlah di consumable
-                datah.append([id, userid, consuid, date]) # Nambah ke variabel cons history
-                # return datacs, datah
+                datah.append([id, userid, consuid, date, qty]) # Nambah ke variabel cons history
 
-    return invent, datacs, datah
+    return datacs, datah

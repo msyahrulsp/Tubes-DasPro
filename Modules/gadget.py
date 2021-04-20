@@ -1,31 +1,41 @@
 from Util.validasi import getId, validDate, validQty
 from Util.gadget import checkGadget, userGadget
 
-def borrowGadget(invent, datagd, datah, userid):
+def borrowGadget(datagd, datah, userid):
     # datagd = list gadget
     # datah = list history borrow gadget
     # userid = ngambil dari hasil login
-    gadgetid = input("Masukkan ID item: ") # Gk bisa minjem gadget yang sama
+    gadgetid = input("Masukkan ID item: ")
 
-    if not checkGadget(invent, gadgetid, userid):
+    # Validasi buat gk bisa minjem item yang lagi dipinjem (masih belum di return full)
+    if not checkGadget(datah, gadgetid, userid):
         print("Anda sedang meminjam gadget tersebut")
-        return invent, datagd, datah
+        return datagd, datah
     
-    idx = getId(datagd, gadgetid)
+    idx = getId(datagd, gadgetid) # Ngambil index dari gadget yang sesuai sama id gadget
 
     if idx == -1:
         print("Gadget dengan ID tersebut tidak ada")
+
     else:
+
         date = input("Tanggal peminjaman (DD/MM/YYYY): ")
         if not (validDate(date)):
             print("Tanggal yang anda masukkan tidak valid")
         else:
+
             qty = input("Jumlah peminjaman: ")
             if not (validQty(datagd, qty, idx)):
-                print("Jumlah yang anda pinjam melebihi stok yang kami punya")
+                if (datagd[idx][3] == 0):
+                    print("\n%s sedang tidak ada stok" % datagd[idx][1])
+                else:
+                    print("\nUntuk sekarang %s hanya ada %s" % (datagd[idx][1], datagd[idx][3]))
+
             elif (int(qty) <= 0):
                 print("Jumlah yang dimasukkan harus lebih dari 0")
+
             else:
+                # Auto id buat borrow_hist
                 if len(datah)-1 == 0:
                     id = "1"
                 else:
@@ -33,43 +43,82 @@ def borrowGadget(invent, datagd, datah, userid):
 
                 print("\nItem %s (x%s) berhasil dipinjam!" % (datagd[idx][1], qty))
                 datagd[idx][3] = str(int(datagd[idx][3]) - int(qty)) # Ngurangin jumlah di consumable
-                datah.append([id, userid, gadgetid, date, qty]) # Nambah value ke gadget borrow history
+                datah.append([id, userid, gadgetid, date, qty, "0"]) # Nambah value ke gadget borrow history
         
-    return invent, datagd, datah
+    return datagd, datah
 
-def returnGadget(invent, datag, datah, userid): # In Progress
-    # gadget.csv, gadget_return.csv, inventory, 
-    tempinvent = userGadget(userid, invent) # Ngeload inventory user spesifik dari inventory.csv
-    
+def returnGadget(datag, datahb, datahr, deleted, userid):
+    # datag = list gadget
+    # datahb = list gadget borrow history
+    # datahr = list gadget return history
+    # deleted = list deleted item
+    # userid = id dari user 
+    pinjamList = userGadget(datahb, userid) # Ngeload gadget yang belum di return dari borrow_history
+    listtempid = []
+
     print()
-    for i in range(len(tempinvent)):
-        print("%d. %s" % (i+1, tempinvent[i][3]))
         
-    if (len(tempinvent) == 0):
-        print("Kamu belum meminjam gadget apapun")
+    if (len(pinjamList) == 0):
+        print("Anda belum meminjam gadget apapun")
     else:
+
+        # Ngeloop list yang diambil dari borrow_hist dan yang emg blm di return full
+        for i in range(len(pinjamList)):
+            tempid = getId(datag, pinjamList[i][2]) # gadget, idgadget(dari borrow_hist)
+            name = datag[tempid][1] # Nama gadget dari gadget
+            if tempid == -1:
+                tempid2 = getId(deleted, pinjamList[i][2]) # deleted, idgadget(dari borrow_hist)
+                name = deleted[tempid2][1]
+            listtempid.append(tempid)
+            print("%d. %s" % (i+1, name))
+
         opt = int(input("\nMasukkan nomor peminjaman: "))
-        if (opt <= 0) and (opt > len(tempinvent)):
-            print("Pilihan yang anda masukkan tidak valid")
+        if (opt <= 0) or (opt > len(pinjamList)):
+            print("\nPilihan yang anda masukkan tidak valid")
+
         else:
-            # ambil index si gadget di gadget_csv
+            opt -= 1
+            idx = listtempid[opt] # Index gadget di gadget.csv)
+
+            # Buat case item yang udah kena delete sebelum di return
+            if (idx == -1):
+                idx = getId(deleted, pinjamList[opt][2])
+                datag.append(deleted[idx]) # Nambahin deleted item ke gadget (karena di return)
+                deleted.pop(idx) # Delete deleted item, karena dah di return
+
+                # Auto id baru buat deleted gadget yang bakal di return
+                if len(datag)-1 == 1:
+                    datag[1][0] = "G1"
+                else:
+                    datag[len(datag)-1][0] = "G" + str(int(datag[len(datag)-2][0][1]) + 1)
+                idx = len(datag)-1 # idx ke last elemen gadget
+
             date = input("Tanggal pengembalian (DD/MM/YYYY): ")
             if not (validDate(date)):
                 print("Tanggal yang anda masukkan tidak valid")
+
             else:
                 qty = input("Banyak item yang mau dikembalikan: ")
-                if not (validQty):
-                    print("Jumlah yang anda masukkan tidak valid")
+                n = int(pinjamList[opt][4]) - int(pinjamList[opt][5]) # Jumlah pinjam - is_returned
+                if int(qty) > n:
+                    print("\nAnda hanya belum mengembalikan %d %s" % (n, datag[idx][1]))
                 elif (int(qty) <= 0):
                     print("Jumlah yang dimasukkan harus lebih dari 0")
+
                 else:
-                    if len(datah)-1 == 0:
+                    # Auto id buat return_hist
+                    if len(datahr)-1 == 0:
                         id = "1"
                     else:
-                        id = str(int(datah[len(datah)-1][0]) + 1)
+                        id = str(int(datahr[len(datahr)-1][0]) + 1)
 
-                    print("\nItem %s (x%s) berhasil dikembalikan" % (invent[i][4], qty))
-                    datah.append([id, idpeminjaman, date, isreturned])
-                    # Kalau habis, delete sama ganti isreturned
+                    id_peminjaman = pinjamList[opt][0] # Ngambil id_peminjaman
+                    print("\nItem %s (x%s) berhasil dikembalikan" % (datag[idx][1], qty))
+                    datahr.append([id, id_peminjaman, date, qty]) # Nambah data ke return_history
 
-    return invent, datag, datah
+                    idx_borrow = getId(datahb, id_peminjaman) # Ngambil index dari id_peminjaman yang sesuai
+                    datahb[idx_borrow][5] = str(int(datahb[idx_borrow][5]) + int(qty)) # Nambah jumlah is_returned sesuai jumlah return
+                    datahb[idx_borrow][2] = datag[idx][0] # Ngubah id deleted gadget di borrow history supaya ngematch id gadget baru
+                    datag[idx][3] = str(int(datag[idx][3]) + int(qty)) # Nambah item di gadget sesuai jumlah return
+
+    return datag, datahb, datahr, deleted

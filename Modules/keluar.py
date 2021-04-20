@@ -3,8 +3,10 @@ from Modules.loadsave import saveData
 
 def keluar(data, type):
     system("cls")
-    if type == "cmd":
+
+    if type == "cmd": # in case pake cmd >>> exit, ditambah print >>> exit
         print(">>> exit")
+        
     opt = input("Apakah anda mau melakukan penyimpanan file yang sudah diubah? (y/n) ")
     opts = ["Y", "y", "N", "n"]
 
