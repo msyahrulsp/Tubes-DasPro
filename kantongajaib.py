@@ -63,7 +63,13 @@ def main(data):
                 else : print('id tidak valid')
             
             elif (cmd == "ubahjumlah"):
-                print("ubahjumlah")
+                itemid = input("Masukkan ID: ")
+                if iditem[0] =="G":
+                    EditStock(gadget,itemid)
+                elif iditem[0] == "C":
+                    EditStock(consumable,itemid)
+                else:
+                    print("Tidak ada item dengan ID tersebut!")
 
             elif (cmd == "pinjam"):
                 gadget, gadget_b_hist = borrowGadget(gadget, gadget_b_hist, id)
