@@ -45,7 +45,7 @@ def main(data):
                 cat = input("Masukkan kategori: ")
                 searchByYear(gadget, year, cat)
 
-            elif (cmd == "tambahitem"): #masih dalam perbaikan, kudu di cek duls gan
+            elif (cmd == "tambahitem"):
                 itemid = input('Masukan ID: ')
                 if itemid[0] == 'G':
                         gadget = addGadget(gadget,itemid)

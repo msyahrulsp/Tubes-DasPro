@@ -12,6 +12,7 @@ def addGadget(data,id):
     rare = input("Masukan Rarity: ")
     if not (rare in validRarity):
         print("\nInput rarity tidak valid!")
+        return data
     year = input("Masukan Tahun Ditemukan: ")
     print('\nItem telah berhasil ditambahkan ke database')
     return data.append([id,nama,desc,jlh,rare,year])
@@ -27,6 +28,6 @@ def addConsumable(data,id):
     rare = input("Masukan Rarity: ")
     if not (rare in validRarity):
         print("\nInput rarity tidak valid!")
+        return data
     print('\nItem telah berhasil ditambahkan ke database')
     return data.append([id,nama,desc,jlh,rare])
-

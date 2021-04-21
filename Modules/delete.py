@@ -32,6 +32,3 @@ def delItem(data, id, type):
     if type == "gadget":
         return item, deleted
     return item
-
-
-

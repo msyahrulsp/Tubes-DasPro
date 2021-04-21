@@ -2,7 +2,7 @@ import os
 from datetime import datetime
 
 def validFolder(folder):
-    for (root, dirs, files) in os.walk('.\Data', topdown=True):
+    for (root, dirs, files) in os.walk('./Data', topdown=True):
         if folder in dirs:
             return True
         return False

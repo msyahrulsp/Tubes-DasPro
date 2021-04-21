@@ -13,11 +13,10 @@ def load(filename):
 
 def loadData(folder): # Masih ada problem tentang looping folder?
     tempdata = []
-    path = "./Data/%s" % folder
-    for (root, dirs, files) in os.walk(path, topdown=True):
-        for x in files:
-            a = load("./Data/%s/%s" % (folder, x))
-            tempdata.append(a)
+    files = ["consumable", "consumable_history", "deleted", "gadget", "gadget_borrow_history", "gadget_return_history", "user"]
+    for pep in files:
+        a = load(f"./Data/{folder}/{pep}.csv")
+        tempdata.append(a)
     return tempdata # Matriks data data yang ada headernya
 
 def saveData(data):
