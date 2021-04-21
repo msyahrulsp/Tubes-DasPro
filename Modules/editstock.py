@@ -1,7 +1,7 @@
 #Module
 from Util.validasi import getId
 
-def EditStock(data,id):
+def editStock(data,id):
     idx = getId(data, id)
     if idx == -1:
         print("Tidak ada item dengan ID tersebut!")
