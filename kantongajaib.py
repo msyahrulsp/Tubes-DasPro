@@ -1,22 +1,22 @@
 import argparse
 from os import system
-import os
 from Modules.loadsave import loadData, saveData
 from Modules.keluar import keluar
 from Modules.login import login
 from Modules.register import register
 from Modules.search import searchByRarity, searchByYear
-from Modules.transaction import borrowGadget, returnGadget, getConsumable
+from Modules.gadget import borrowGadget, returnGadget
+from Modules.consumable import getConsumable
 from Util.validasi import validFolder, validCmd
 from Modules.add import addConsumable,addGadget
 from Modules.delete import delItem
 
 def main(data):
-    consumable, consumable_hist, gadget, gadget_b_hist, gadget_r_hist, user = data
+    consumable, consumable_hist, deleted, gadget, gadget_b_hist, gadget_r_hist, user = data
     id, role = login(user)
 
     while (role == "1") or (role == "0"): # Validasi login
-        system("clear")
+        system("cls")
         if (role == "0"): # Username tidak terdaftar
             print("Username tidak terdaftar\n")
         else: # Error = 1, password salah
@@ -24,13 +24,12 @@ def main(data):
         id, role = login(user)
 
     input("\nTekan ENTER untuk lanjut")
-    system("clear")
+    system("cls")
 
     while True:
-        print("Pilihan : ")
         cmd = input(">>> ").lower().replace(" ", "").replace("_", "")
 
-        if validCmd(cmd, role) == 2:
+        if validCmd(cmd, role) == 2: # User punya akses ke cmd
 
             if (cmd == "register"):
                 newUser = register(user)
@@ -46,8 +45,8 @@ def main(data):
                 cat = input("Masukkan kategori: ")
                 searchByYear(gadget, year, cat)
 
-            elif (cmd == "tambahitem"): #masih dalam perbaikan, kudu di cek duls gan
-                itemid = input('Masukan Id      : ')
+            elif (cmd == "tambahitem"):
+                itemid = input('Masukan ID: ')
                 if itemid[0] == 'G':
                         gadget = addGadget(gadget,itemid)
                 elif itemid[0] == 'C':
@@ -55,7 +54,7 @@ def main(data):
                 else : print('Gagal menambahkan karena id tidak valid')
 
             elif (cmd == "hapusitem"):
-                itemid = input('Masukan Index       : ')
+                itemid = input('Masukan ID Item: ')
                 if itemid[0] == 'G':
                         tempdata = [gadget, deleted]
                         gadget, deleted = delItem(tempdata,itemid, "gadget")
@@ -70,8 +69,7 @@ def main(data):
                 gadget, gadget_b_hist = borrowGadget(gadget, gadget_b_hist, id)
 
             elif (cmd == "kembalikan"):
-                # returnGadget(gadget_b_hist, id)
-                print("Panggil returnGadget")
+                gadget, gadget_b_hist, gadget_r_hist, deleted = returnGadget(gadget, gadget_b_hist, gadget_r_hist, deleted, id)
 
             elif (cmd == "minta"):
                 consumable, consumable_hist = getConsumable(consumable, consumable_hist, id)
@@ -86,39 +84,46 @@ def main(data):
                 print("riwayatambil")
 
             elif (cmd == "save"):
-                data = [consumable, consumable_hist, gadget, gadget_b_hist, gadget_r_hist, user]
+                data = [consumable, consumable_hist, deleted, gadget, gadget_b_hist, gadget_r_hist, user]
                 saveData(data)
 
             elif (cmd == "help"):
                 print("help")
 
             elif (cmd == "exit"):
-                data = [consumable, consumable_hist, gadget, gadget_b_hist, gadget_r_hist, user]
-                keluar(data)
+                data = [consumable, consumable_hist, deleted, gadget, gadget_b_hist, gadget_r_hist, user]
+                keluar(data, "cmd")
 
-            input("\nTekan ENTER untuk lanjut")
-            system("clear")
+        elif validCmd(cmd, role) == 1: # User gk ada akses
+            print("\nAnda tidak memiliki akses untuk command ini!")
+            print("Silahkan gunakan perintah \"help\" untuk mengetahui anda bisa mengakses command apa saja")
 
-        elif validCmd(cmd, role) == 1:
-            print("Anda tidak memiliki akses untuk command ini!")
-        else:
-            print("Command tidak ditemukan")
+        else: # Command gk ada di list
+            print("\nCommand tidak ditemukan")
+            print("Silahkan gunakan perintah \"help\" untuk mengetahui anda bisa menggunakan command apa saja")
+
+        input("\nTekan ENTER untuk lanjut")
+        system("cls")
 
 try:
-    system("clear")
+    system("cls")
     parser = argparse.ArgumentParser(usage="python kantongajaib.py <nama_folder>") # Error messagenya masih belum custom
     parser.add_argument("folder")
     args = parser.parse_args()
 
-    if not validFolder(args.folder):
-       # print(args.folder in os.walk('Data', topdown=True))
-       print(f"{args.folder}Folder yang anda masukkan tidak ada!")
-       exit()
+    if not validFolder(args.folder): # Folder harus ada di path Data/
+        print("Folder yang anda masukkan tidak ada!")
+        exit()
 
     temp = loadData(args.folder) # Ngeload file dari folder yang dah dimasukin pas ngejalanin
     # Catetan : ini nge load pake header, jadi kalau mau make, di slice dlu index 0nya
 
     main(temp)
 except KeyboardInterrupt: # Bakal aktif kalau pake CTRL + C
+    # For some reason, ini bisa ngambil latest data dari variabel yang ada di main
+    # Jadi tolong jangan diapa2in xdd
+
+    # Tapi sabi dicoba coba buat mainin CTRL + C terus save dan liat
+    # apa data yang dah dimasukin sebelum CTRL + C ikut ke save
     data = temp
-    keluar(data)
+    keluar(data, "key")

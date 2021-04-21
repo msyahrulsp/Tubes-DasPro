@@ -11,16 +11,16 @@ def load(filename):
             temp.append(line)
     return temp # Include header
 
-def loadData(folder):
+def loadData(folder): # Masih ada problem tentang looping folder?
     tempdata = []
-    files = ["consumable", "consumable_history", "gadget", "gadget_borrow_history", "gadget_return_history", "user"]
+    files = ["consumable", "consumable_history", "deleted", "gadget", "gadget_borrow_history", "gadget_return_history", "user"]
     for pep in files:
         a = load(f"./Data/{folder}/{pep}.csv")
         tempdata.append(a)
     return tempdata # Matriks data data yang ada headernya
 
 def saveData(data):
-    files = ["consumable", "consumable_history", "gadget", "gadget_borrow_history", "gadget_return_history", "user"]
+    files = ["consumable", "consumable_history", "deleted", "gadget", "gadget_borrow_history", "gadget_return_history", "user"]
     # Buat sekarang, folder belum ada validasi buat format tertentu
     folder = input("Masukkan nama folder penyimpanan: ") # Folder apa ada format tertenu??
 

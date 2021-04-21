@@ -55,6 +55,22 @@ def searchByYear(data,request,type):
                 print(f'Jumlah          : {newdata[3]} ')
                 print(f'Rarity          : {newdata[4]} ')
                 print(f'Tahun Ditemukan : {newdata[5]} ')
+        if type == '>=':
+            if int(newdata[5]) >= request :
+                state = False
+                print(f'\nNama            : {newdata[1]} ')
+                print(f'Deskripsi       : {newdata[2]} ')
+                print(f'Jumlah          : {newdata[3]} ')
+                print(f'Rarity          : {newdata[4]} ')
+                print(f'Tahun Ditemukan : {newdata[5]} ')
+        if type == '<=':
+            if int(newdata[5]) <= request :
+                state = False
+                print(f'\nNama            : {newdata[1]} ')
+                print(f'Deskripsi       : {newdata[2]} ')
+                print(f'Jumlah          : {newdata[3]} ')
+                print(f'Rarity          : {newdata[4]} ')
+                print(f'Tahun Ditemukan : {newdata[5]} ')
     if state :
         print('Tidak ada gadget ditemukan\n')
 
