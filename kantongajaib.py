@@ -66,9 +66,9 @@ def main(data):
             elif (cmd == "ubahjumlah"):
                 itemid = input("Masukkan ID: ")
                 if iditem[0] =="G":
-                    editStock(gadget,itemid)
+                    gadget = editStock(gadget,itemid)
                 elif iditem[0] == "C":
-                    editStock(consumable,itemid)
+                    consumable = editStock(consumable,itemid)
                 else:
                     print("Tidak ada item dengan ID tersebut!")
 
