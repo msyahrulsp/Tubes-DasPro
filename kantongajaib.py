@@ -4,7 +4,7 @@ from Modules.loadsave import loadData, saveData
 from Modules.keluar import keluar
 from Modules.login import login
 from Modules.register import register
-from Modules.search import searchByRarity, 
+from Modules.search import searchByRarity, searchByYear 
 from Modules.gadget_borrow_history import gadget_bor_hist
 from Modules.gadget_return_history import gadget_ret_hist
 from Modules.consumable_history import consum_hist
