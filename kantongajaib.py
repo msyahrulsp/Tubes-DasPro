@@ -11,12 +11,14 @@ from Util.validasi import validFolder, validCmd
 from Modules.add import addConsumable,addGadget
 from Modules.delete import delItem
 from Modules.editstock import editStock
+from Modules.help import openHelp
 
 def main(data):
     consumable, consumable_hist, deleted, gadget, gadget_b_hist, gadget_r_hist, user = data
+    print("Selamat datang di program kami, silakan ketik 'help' atau 'login'.")
     act = input(">>> ").lower().replace(" ", "").replace("_", "")
     if (act == "help"):
-        help()
+        openHelp()
     elif (act == "login"):
         id, role = login(user)
         pass
@@ -100,7 +102,7 @@ def main(data):
                 saveData(data)
 
             elif (cmd == "help"):
-                print("help")
+                openHelp(role) #menggunakan help berdasarkan role pengguna saat ini
 
             elif (cmd == "exit"):
                 data = [consumable, consumable_hist, deleted, gadget, gadget_b_hist, gadget_r_hist, user]
