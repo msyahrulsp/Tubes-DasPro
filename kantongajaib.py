@@ -14,7 +14,12 @@ from Modules.editstock import editStock
 
 def main(data):
     consumable, consumable_hist, deleted, gadget, gadget_b_hist, gadget_r_hist, user = data
-    id, role = login(user)
+    act = input(">>> ").lower().replace(" ", "").replace("_", "")
+    if (act == "help"):
+        help()
+    elif (act == "login"):
+        id, role = login(user)
+        pass
 
     while (role == "1") or (role == "0"): # Validasi login
         system("cls")
