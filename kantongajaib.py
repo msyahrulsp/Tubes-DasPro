@@ -10,6 +10,7 @@ from Modules.consumable import getConsumable
 from Util.validasi import validFolder, validCmd
 from Modules.add import addConsumable,addGadget
 from Modules.delete import delItem
+from Modules.editstock import editStock
 
 def main(data):
     consumable, consumable_hist, deleted, gadget, gadget_b_hist, gadget_r_hist, user = data
@@ -63,7 +64,13 @@ def main(data):
                 else : print('id tidak valid')
             
             elif (cmd == "ubahjumlah"):
-                print("ubahjumlah")
+                itemid = input("Masukkan ID: ")
+                if iditem[0] =="G":
+                    gadget = editStock(gadget,itemid)
+                elif iditem[0] == "C":
+                    consumable = editStock(consumable,itemid)
+                else:
+                    print("Tidak ada item dengan ID tersebut!")
 
             elif (cmd == "pinjam"):
                 gadget, gadget_b_hist = borrowGadget(gadget, gadget_b_hist, id)
