@@ -1,4 +1,4 @@
-def help(role="nouser"): #memberikan default value "nouser" ketika tidak diberikan argumen
+def openHelp(role="nouser"): #memberikan default value "nouser" ketika tidak diberikan argumen (digunakn sebelum login)
     if role == "admin":
         print("register - untuk melanjutkan registrasi user baru")
         print("login - untuk melaukan login ke dalam sistem")
