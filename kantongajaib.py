@@ -4,32 +4,41 @@ from Modules.loadsave import loadData, saveData
 from Modules.keluar import keluar
 from Modules.login import login
 from Modules.register import register
-from Modules.search import searchByRarity, searchByYear
-from Modules.transaction import borrowGadget, returnGadget, getConsumable
+from Modules.search import searchByRarity, 
 from Modules.gadget_borrow_history import gadget_bor_hist
 from Modules.gadget_return_history import gadget_ret_hist
 from Modules.consumable_history import consum_hist
+from Modules.gadget import borrowGadget, returnGadget
+from Modules.consumable import getConsumable
 from Util.validasi import validFolder, validCmd
+from Modules.add import addConsumable,addGadget
+from Modules.delete import delItem
+from Modules.editstock import editStock
+from Modules.help import openHelp
 
 def main(data):
-    consumable, consumable_hist, gadget, gadget_b_hist, gadget_r_hist, user = data
-    id, role = login(user)
-
-    while (role == "1") or (role == "0"): # Validasi login
-        system("cls")
-        if (role == "0"): # Username tidak terdaftar
-            print("Username tidak terdaftar\n")
-        else: # Error = 1, password salah
-            print("Password yang anda masukkan salah\n")
-        id, role = login(user)
-
-    input("\nTekan ENTER untuk lanjut")
-    system("cls")
+    consumable, consumable_hist, deleted, gadget, gadget_b_hist, gadget_r_hist, user = data
+    id = -1
+    role = "nouser"
 
     while True:
+        if role == "nouser":
+            print("Selamat datang di program kami, silakan ketik 'help' atau 'login'")
+
         cmd = input(">>> ").lower().replace(" ", "").replace("_", "")
 
-        if validCmd(cmd, role) == 2:
+        if validCmd(cmd, role) == 2: # User punya akses ke cmd
+
+            if (cmd == "login"):
+                system("cls")
+                id, role = login(user)
+                while (role == "1") or (role == "0"): # Validasi login
+                    system("cls")
+                    if (role == "0"): # Username tidak terdaftar
+                        print("Username tidak terdaftar\n")
+                    else: # Error = 1, password salah
+                        print("Password yang anda masukkan salah\n")
+                    id, role = login(user)
 
             if (cmd == "register"):
                 newUser = register(user)
@@ -46,20 +55,36 @@ def main(data):
                 searchByYear(gadget, year, cat)
 
             elif (cmd == "tambahitem"):
-                print("tambahitem")
+                itemid = input('Masukan ID: ')
+                if itemid[0] == 'G':
+                    gadget = addGadget(gadget,itemid)
+                elif itemid[0] == 'C':
+                    consumable = addConsumable(consumable,itemid)
+                else : print('Gagal menambahkan karena id tidak valid')
 
             elif (cmd == "hapusitem"):
-                print("hapusitem")
-
+                itemid = input('Masukan ID Item: ')
+                if itemid[0] == 'G':
+                    tempdata = [gadget, deleted]
+                    gadget, deleted = delItem(tempdata,itemid, "gadget")
+                elif itemid[0] == 'C':
+                    consumable = delItem(consumable,itemid, "consumable")
+                else : print('id tidak valid')
+            
             elif (cmd == "ubahjumlah"):
-                print("ubahjumlah")
+                itemid = input("Masukkan ID: ")
+                if itemid[0] =="G":
+                    gadget = editStock(gadget,itemid)
+                elif itemid[0] == "C":
+                    consumable = editStock(consumable,itemid)
+                else:
+                    print("Tidak ada item dengan ID tersebut!")
 
             elif (cmd == "pinjam"):
                 gadget, gadget_b_hist = borrowGadget(gadget, gadget_b_hist, id)
 
             elif (cmd == "kembalikan"):
-                # returnGadget(gadget_b_hist, id)
-                print("Panggil returnGadget")
+                gadget, gadget_b_hist, gadget_r_hist, deleted = returnGadget(gadget, gadget_b_hist, gadget_r_hist, deleted, id)
 
             elif (cmd == "minta"):
                 consumable, consumable_hist = getConsumable(consumable, consumable_hist, id)
@@ -74,23 +99,26 @@ def main(data):
                 consum_hist(consumable_hist)
 
             elif (cmd == "save"):
-                data = [consumable, consumable_hist, gadget, gadget_b_hist, gadget_r_hist, user]
+                data = [consumable, consumable_hist, deleted, gadget, gadget_b_hist, gadget_r_hist, user]
                 saveData(data)
 
             elif (cmd == "help"):
-                print("help")
+                openHelp(role) #menggunakan help berdasarkan role pengguna saat ini
 
             elif (cmd == "exit"):
-                data = [consumable, consumable_hist, gadget, gadget_b_hist, gadget_r_hist, user]
-                keluar(data)
+                data = [consumable, consumable_hist, deleted, gadget, gadget_b_hist, gadget_r_hist, user]
+                keluar(data, "cmd")
 
-            input("\nTekan ENTER untuk lanjut")
-            system("cls")
+        elif validCmd(cmd, role) == 1: # User gk ada akses
+            print("\nAnda tidak memiliki akses untuk command ini!")
+            print("Silahkan gunakan perintah \"help\" untuk mengetahui anda bisa mengakses command apa saja")
 
-        elif validCmd(cmd, role) == 1:
-            print("Anda tidak memiliki akses untuk command ini!")
-        else:
-            print("Command tidak ditemukan")
+        else: # Command gk ada di list
+            print("\nCommand tidak ditemukan")
+            print("Silahkan gunakan perintah \"help\" untuk mengetahui anda bisa menggunakan command apa saja")
+
+        input("\nTekan ENTER untuk lanjut")
+        system("cls")
 
 try:
     system("cls")
@@ -98,7 +126,7 @@ try:
     parser.add_argument("folder")
     args = parser.parse_args()
 
-    if not validFolder(args.folder):
+    if not validFolder(args.folder): # Folder harus ada di path Data/
         print("Folder yang anda masukkan tidak ada!")
         exit()
 
@@ -107,5 +135,10 @@ try:
 
     main(temp)
 except KeyboardInterrupt: # Bakal aktif kalau pake CTRL + C
+    # For some reason, ini bisa ngambil latest data dari variabel yang ada di main
+    # Jadi tolong jangan diapa2in xdd
+
+    # Tapi sabi dicoba coba buat mainin CTRL + C terus save dan liat
+    # apa data yang dah dimasukin sebelum CTRL + C ikut ke save
     data = temp
-    keluar(data)
+    keluar(data, "key")

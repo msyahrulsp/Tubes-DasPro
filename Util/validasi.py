@@ -2,7 +2,7 @@ import os
 from datetime import datetime
 
 def validFolder(folder):
-    for (root, dirs, files) in os.walk('.\Data', topdown=True):
+    for (root, dirs, files) in os.walk('./Data', topdown=True):
         if folder in dirs:
             return True
         return False
@@ -14,6 +14,7 @@ def validCmd(cmd, role):
     adminCmd = ["register", "tambahitem", "hapusitem", "ubahjumlah", "riwayatpinjam", "riwayatkembali", "riwayatambil"]
     bothCmd = ["carirarity", "caritahun", "save", "help", "exit"]
     userCmd = ["pinjam", "kembalikan", "minta"]
+    noUserCmd = ["login", "help", "exit"]
 
     if (role == "admin"):
         if (cmd in adminCmd) or (cmd in bothCmd):
@@ -23,11 +24,15 @@ def validCmd(cmd, role):
         if (cmd in userCmd) or (cmd in bothCmd):
             return 2
 
-    if (cmd in adminCmd) or (cmd in bothCmd) or (cmd in userCmd):
+    if (role == "nouser"):
+        if (cmd in noUserCmd):
+            return 2
+
+    if (cmd in adminCmd) or (cmd in bothCmd) or (cmd in userCmd) or (cmd in noUserCmd):
         return 1
     return 0
 
-def validId(data, id): # Cek validasi sekalian return idx kalau true
+def getId(data, id): # Cek validasi sekalian return idx kalau true
     for i in range(1, len(data)):
         if data[i][0] == id : return i
     return -1 
