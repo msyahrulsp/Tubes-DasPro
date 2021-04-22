@@ -15,29 +15,27 @@ from Modules.help import openHelp
 
 def main(data):
     consumable, consumable_hist, deleted, gadget, gadget_b_hist, gadget_r_hist, user = data
-    print("Selamat datang di program kami, silakan ketik 'help' atau 'login'.")
-    act = input(">>> ").lower().replace(" ", "").replace("_", "")
-    if (act == "help"):
-        openHelp()
-    elif (act == "login"):
-        id, role = login(user)
-        pass
-
-    while (role == "1") or (role == "0"): # Validasi login
-        system("cls")
-        if (role == "0"): # Username tidak terdaftar
-            print("Username tidak terdaftar\n")
-        else: # Error = 1, password salah
-            print("Password yang anda masukkan salah\n")
-        id, role = login(user)
-
-    input("\nTekan ENTER untuk lanjut")
-    system("cls")
+    id = -1
+    role = "nouser"
 
     while True:
+        if role == "nouser":
+            print("Selamat datang di program kami, silakan ketik 'help' atau 'login'")
+
         cmd = input(">>> ").lower().replace(" ", "").replace("_", "")
 
         if validCmd(cmd, role) == 2: # User punya akses ke cmd
+
+            if (cmd == "login"):
+                system("cls")
+                id, role = login(user)
+                while (role == "1") or (role == "0"): # Validasi login
+                    system("cls")
+                    if (role == "0"): # Username tidak terdaftar
+                        print("Username tidak terdaftar\n")
+                    else: # Error = 1, password salah
+                        print("Password yang anda masukkan salah\n")
+                    id, role = login(user)
 
             if (cmd == "register"):
                 newUser = register(user)
@@ -56,25 +54,25 @@ def main(data):
             elif (cmd == "tambahitem"):
                 itemid = input('Masukan ID: ')
                 if itemid[0] == 'G':
-                        gadget = addGadget(gadget,itemid)
+                    gadget = addGadget(gadget,itemid)
                 elif itemid[0] == 'C':
-                        consumable = addConsumable(consumable,itemid)
+                    consumable = addConsumable(consumable,itemid)
                 else : print('Gagal menambahkan karena id tidak valid')
 
             elif (cmd == "hapusitem"):
                 itemid = input('Masukan ID Item: ')
                 if itemid[0] == 'G':
-                        tempdata = [gadget, deleted]
-                        gadget, deleted = delItem(tempdata,itemid, "gadget")
+                    tempdata = [gadget, deleted]
+                    gadget, deleted = delItem(tempdata,itemid, "gadget")
                 elif itemid[0] == 'C':
-                        consumable = delItem(consumable,itemid, "consumable")
+                    consumable = delItem(consumable,itemid, "consumable")
                 else : print('id tidak valid')
             
             elif (cmd == "ubahjumlah"):
                 itemid = input("Masukkan ID: ")
-                if iditem[0] =="G":
+                if itemid[0] =="G":
                     gadget = editStock(gadget,itemid)
-                elif iditem[0] == "C":
+                elif itemid[0] == "C":
                     consumable = editStock(consumable,itemid)
                 else:
                     print("Tidak ada item dengan ID tersebut!")

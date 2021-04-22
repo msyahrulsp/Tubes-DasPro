@@ -14,6 +14,7 @@ def validCmd(cmd, role):
     adminCmd = ["register", "tambahitem", "hapusitem", "ubahjumlah", "riwayatpinjam", "riwayatkembali", "riwayatambil"]
     bothCmd = ["carirarity", "caritahun", "save", "help", "exit"]
     userCmd = ["pinjam", "kembalikan", "minta"]
+    noUserCmd = ["login", "help", "exit"]
 
     if (role == "admin"):
         if (cmd in adminCmd) or (cmd in bothCmd):
@@ -23,7 +24,11 @@ def validCmd(cmd, role):
         if (cmd in userCmd) or (cmd in bothCmd):
             return 2
 
-    if (cmd in adminCmd) or (cmd in bothCmd) or (cmd in userCmd):
+    if (role == "nouser"):
+        if (cmd in noUserCmd):
+            return 2
+
+    if (cmd in adminCmd) or (cmd in bothCmd) or (cmd in userCmd) or (cmd in noUserCmd):
         return 1
     return 0
 
