@@ -4,7 +4,10 @@ from Modules.loadsave import loadData, saveData
 from Modules.keluar import keluar
 from Modules.login import login
 from Modules.register import register
-from Modules.search import searchByRarity, searchByYear
+from Modules.search import searchByRarity, 
+from Modules.gadget_borrow_history import gadget_bor_hist
+from Modules.gadget_return_history import gadget_ret_hist
+from Modules.consumable_history import consum_hist
 from Modules.gadget import borrowGadget, returnGadget
 from Modules.consumable import getConsumable
 from Util.validasi import validFolder, validCmd
@@ -87,13 +90,13 @@ def main(data):
                 consumable, consumable_hist = getConsumable(consumable, consumable_hist, id)
 
             elif (cmd == "riwayatpinjam"):
-                print("riwayatpinjam")
+                gadget_bor_hist(gadget_b_hist)
 
             elif (cmd == "riwayatkembali"):
-                print("riwayatkembali")
+                gadget_ret_hist(gadget_r_hist)
 
             elif (cmd == "riwayatambil"):
-                print("riwayatambil")
+                consum_hist(consumable_hist)
 
             elif (cmd == "save"):
                 data = [consumable, consumable_hist, deleted, gadget, gadget_b_hist, gadget_r_hist, user]
