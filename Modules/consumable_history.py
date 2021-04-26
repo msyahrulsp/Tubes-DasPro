@@ -51,7 +51,7 @@ def sortDate (data):
     date_sorted = []
     for i in range (1, len(data)):
         date_sorted.append(data[i][3])
-        date_sorted.sort(key=lambda date: datetime.datetime.strptime(date, "%d/%m/%Y")) # pengurutan dilakukan dari tanggal yang paling kecil
+        date_sorted.sort(key=lambda date: datetime.datetime.strptime(date, '%d/%m/%Y')) # pengurutan dilakukan dari tanggal yang paling kecil
         date_sorted.reverse()   # membalikkan urutan array 'date_sorted'
     return date_sorted
     
