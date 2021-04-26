@@ -75,6 +75,9 @@ def findIdx (data, date):
 def getID (data,x):
     return data[x][0]
 
+def getGadget (data,x):
+     return data[x][2]
+
 def getPeminjam (data,x):
     return data[x][1]
 

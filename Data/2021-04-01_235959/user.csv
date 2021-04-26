@@ -1,7 +1,7 @@
 id;username;nama;alamat;password;role
-1;yuko;remek;remek;wjrjp;user
-2;nulgath;tiroi;jalan kencana;szqlfymjkl;user
-3;admin;admin;admin;firns;admin
-4;superuser;superuser;superuser;xzujwzxjw;user
-5;remedi;remedi;remedi;wjrjin;user
-6;testa;testa;bojong;yjxy;user
+1;yuko;remek;remek;wjrjp;10
+2;nulgath;tiroi;jalan kencana;szqlfymjkl;10
+3;admin;admin;admin;firns;40
+4;superuser;superuser;superuser;xzujwzxjw;10
+5;remedi;remedi;remedi;wjrjin;10
+6;testa;testa;bojong;yjxy;u10
