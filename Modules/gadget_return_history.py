@@ -1,30 +1,33 @@
 import datetime
 
 def gadget_ret_hist (data):
-    date_sorted = sortDate(data)            # mengembalikan array dengan tanggal terurut dari besar ke kecil
-    idx_list = findIdx(data, date_sorted)   # mengembalikan array dengan indeks yang sesuai dengan tanggal
-    currentStart = 0
-    currentEnd = len(idx_list)
-    output(currentStart,currentEnd,data,idx_list)
+    if (len(data)) == 1:
+        print("Data masih kosong!")
+    else:
+        date_sorted = sortDate(data)            # mengembalikan array dengan tanggal terurut dari besar ke kecil
+        idx_list = findIdx(data, date_sorted)   # mengembalikan array dengan indeks yang sesuai dengan tanggal
+        currentStart = 0
+        currentEnd = len(idx_list)
+        output(currentStart,currentEnd,data,idx_list)
 
-    flagMain = True
-    while flagMain:
-        userPref = input("Apakah anda ingin melihat 5 data lagi? (y/n) ")
-        if userPref == "n":
-            flagMain = False
-        else:
-            if (currentStart >= (len(idx_list)-1)):     # indeks start awal lebih atau sama dengan panjang array 'idx_list'-1
-                print("Data sudah habis!")              # data akan habis jika syarat tersebut terpenuhi
+        flagMain = True
+        while flagMain:
+            userPref = input("Apakah anda ingin melihat 5 data lagi? (y/n) ")
+            if userPref == "n":
                 flagMain = False
             else:
-                currentStart += 5                       # indeks start akan selalu ditambah 5
+                if (currentStart >= (len(idx_list)-1)):     # indeks start awal lebih atau sama dengan panjang array 'idx_list'-1
+                    print("Data sudah habis!")              # data akan habis jika syarat tersebut terpenuhi
+                    flagMain = False
+                else:
+                    currentStart += 5                       # indeks start akan selalu ditambah 5
 
-            if (currentEnd >= (len(idx_list)-1)):       # indeks end akhir lebih atau sama dengan panjang data 'idx_list'-1
-                print("Data sudah habis!")              # data akan habis jika syarat tersebut terpenuhi
-                flagMain = False
-            else:  
-                currentEnd = currentEnd + (len(idx_list) - currentEnd)      # indeks end akan selalu ditambah selisih panjang array dengan awalnya
-            output(currentStart,currentEnd,data,idx_list)
+                if (currentEnd >= (len(idx_list)-1)):       # indeks end akhir lebih atau sama dengan panjang data 'idx_list'-1
+                    print("Data sudah habis!")              # data akan habis jika syarat tersebut terpenuhi
+                    flagMain = False
+                else:  
+                    currentEnd = currentEnd + (len(idx_list) - currentEnd)      # indeks end akan selalu ditambah selisih panjang array dengan awalnya
+                output(currentStart,currentEnd,data,idx_list)
 
 def output (currentStart,currentEnd,data,idx_list):
     # Mengambil 5 data dari array yang sudah terurut dengan start dan end tertentu
