@@ -45,7 +45,7 @@ def addGadget(data,id):
     nama = input("Masukan Nama: ")   
     desc = input("Masukan Deskripsi: ")
     jlh = input("Masukan Jumlah: ")
-    if checkInteger(jlh) is False or int(jlh<0):
+    if checkInteger(jlh) is False or int(jlh)<0:
         print("Jumlah tidak valid")
         return data
     rare = input("Masukan Rarity: ")
@@ -74,7 +74,7 @@ def addConsumable(data,id):
     nama = input("Masukan Nama: ")   
     desc = input("Masukan Deskripsi: ")
     jlh = input("Masukan Jumlah: ")
-    if checkInteger(jlh) is False or int(jlh<0):
+    if checkInteger(jlh) is False or int(jlh)<0:
         print("Jumlah tidak valid")
         return data
     rare = input("Masukan Rarity: ")
