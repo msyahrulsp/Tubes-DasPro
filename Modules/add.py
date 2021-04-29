@@ -57,7 +57,8 @@ def addGadget(data,id):
         print("Tahun tidak valid")
         return data
     print('\nItem telah berhasil ditambahkan ke database')
-    return data.append([id,nama,desc,jlh,rare,year])
+    data += [[id,nama,desc,jlh,rare,year]]
+    return data
 
 # Kamus Lokal
 ''' 
@@ -82,4 +83,5 @@ def addConsumable(data,id):
         print("\nInput rarity tidak valid!")
         return data
     print('\nItem telah berhasil ditambahkan ke database')
-    return data.append([id,nama,desc,jlh,rare])
+    data+= [[id,nama,desc,jlh,rare]]
+    return data
