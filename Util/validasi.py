@@ -13,7 +13,7 @@ def validCmd(cmd, role):
     # 2 = True
     adminCmd = ["register", "tambahitem", "hapusitem", "ubahjumlah", "riwayatpinjam", "riwayatkembali", "riwayatambil"]
     bothCmd = ["carirarity", "caritahun", "save", "help", "exit"]
-    userCmd = ["pinjam", "kembalikan", "minta"]
+    userCmd = ["pinjam", "kembalikan", "minta", "gacha"]
     noUserCmd = ["login", "help", "exit"]
 
     if (role == "admin"):
