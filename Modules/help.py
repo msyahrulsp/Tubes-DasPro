@@ -1,3 +1,29 @@
+#Kamus
+# Kelas Kelompok
+# Nomor Kelompok
+#Nama Anggota           : 1. 16520490 - Farhandika Zahrir Mufti Guenia
+#                         2. 16520430 - M. Syahrul Surya Putra
+#                         3. 16520120 - Yakobus Iryanto Prasethio
+#                         4. 16520370 - Muhammad Rifqi Riansyah M
+
+
+
+# Prosedur F16 - help / openHelp
+# Akses : Admin, User
+''' Spesifikasi :  Prosedur ini memberikan command apa-apa saja yang user bisa nikmati berdasarkan role yang dimiliki user
+'''
+# I.S. : parameter fungsi ini hanya role yang akan digunakan untuk menentukan apa2 saja yang bisa
+# F.S. : printout command apa saj ayang bisa di nikmati oleh user
+# Proses : 
+'''
+jika role = user dan role = admin makan user bisa melakukan ini dan jika role = admin, makan user bisa melakukan lebih dari user biasa     
+'''
+
+
+
+
+
+
 def openHelp(role="nouser"): #memberikan default value "nouser" ketika tidak diberikan argumen (digunakn sebelum login)
     print("============ HELP ============")
     print("login - untuk melakukan login ke dalam sistem")

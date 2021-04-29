@@ -1,5 +1,36 @@
 from Util.split import split
 
+#Kamus
+# Kelas Kelompok
+# Nomor Kelompok
+#Nama Anggota           : 1. 16520490 - Farhandika Zahrir Mufti Guenia
+#                         2. 16520430 - M. Syahrul Surya Putra
+#                         3. 16520120 - Yakobus Iryanto Prasethio
+#                         4. 16520370 - Muhammad Rifqi Riansyah M
+
+
+
+# Prosedur F06 - Menghapus Consumable atau Gadget / delItem
+# Akses : Admin, User
+''' Spesifikasi :  Prosedur ini men deteksi apa yang mau di delete (Gadget atau COnsumable), lalu mendeletenya berdasarkan id yang dimasukan oleh user
+
+'''
+# I.S. : parameter fungsii pada fungsi ini adalah data, id sebagai alat pencari mana yang mau di delete, dan type sebagai penentu tipe apa yang mau di delete
+# F.S. : jika id ada terdapat dalam data, makan akan di delete itemnya berdasarkan id yang dimasukan user
+# Proses : 
+'''
+  akan di loop sebanyak data yang ada, jika matching idnya dengan id inputan user, makan akan diminta apakah user yakin jika ingin di delete, jika iya maka item akan di delete
+  dan jika tidak ada yang matching, program akan memeberikan sebuah printout bahwa id tidak ditemukan di dalam sistem          
+'''
+
+
+# Kamus Lokal
+''' 
+item : Array of Something (bisa int,string,atau char)
+deleted : Array of Something
+opsi : Char
+'''
+
 def delItem(data, id, type):
     if type == "gadget":
         item = data[0] # Gadget
