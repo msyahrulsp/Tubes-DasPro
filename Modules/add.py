@@ -46,7 +46,7 @@ def addGadget(data,id):
     nama = input("Masukan Nama: ")   
     desc = input("Masukan Deskripsi: ")
     jlh = input("Masukan Jumlah: ")
-    if checkInteger(jlh) is False or jlh<0:
+    if checkInteger(jlh) is False or int(jlh<0):
         print("Jumlah tidak valid")
         input("Tekan Enter untuk melanjutkan")
         return data
@@ -56,7 +56,7 @@ def addGadget(data,id):
         input("Tekan Enter untuk melanjutkan")
         return data
     year = input("Masukan Tahun Ditemukan: ")
-    if checkInteger(year) is False or year<0:
+    if checkInteger(year) is False or int(year<0):
         print("Tahun tidak valid")
         input("Tekan Enter untuk melanjutkan")
         return data
@@ -78,7 +78,7 @@ def addConsumable(data,id):
     nama = input("Masukan Nama: ")   
     desc = input("Masukan Deskripsi: ")
     jlh = input("Masukan Jumlah: ")
-    if checkInteger(jlh) is False or jlh<0:
+    if checkInteger(jlh) is False or int(jlh<0):
         print("Jumlah tidak valid")
         input("Tekan Enter untuk melanjutkan")
         return data
