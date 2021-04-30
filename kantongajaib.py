@@ -15,9 +15,10 @@ from Modules.add import addConsumable,addGadget
 from Modules.delete import delItem
 from Modules.editstock import editStock
 from Modules.help import openHelp
+from Modules.gacha import gacha
 
 def main(data):
-    consumable, consumable_hist, deleted, gadget, gadget_b_hist, gadget_r_hist, user = data
+    consumable, consumable_hist, deleted, gadget, gadget_b_hist, gadget_r_hist, inventory, user = data
     id = -1
     role = "nouser"
 
@@ -99,15 +100,18 @@ def main(data):
                 consum_hist(consumable_hist)
 
             elif (cmd == "save"):
-                data = [consumable, consumable_hist, deleted, gadget, gadget_b_hist, gadget_r_hist, user]
+                data = [consumable, consumable_hist, deleted, gadget, gadget_b_hist, gadget_r_hist, inventory, user]
                 saveData(data)
 
             elif (cmd == "help"):
                 openHelp(role) #menggunakan help berdasarkan role pengguna saat ini
 
             elif (cmd == "exit"):
-                data = [consumable, consumable_hist, deleted, gadget, gadget_b_hist, gadget_r_hist, user]
-                keluar(data, "cmd")
+                data = [consumable, consumable_hist, deleted, gadget, gadget_b_hist, gadget_r_hist, inventory, user]
+                keluar(data, "cmd", role)
+
+            elif (cmd == "gacha"):
+                inventory, consumable, consumable_hist = gacha(inventory, consumable, consumable_hist, id)
 
         elif validCmd(cmd, role) == 1: # User gk ada akses
             print("\nAnda tidak memiliki akses untuk command ini!")
@@ -120,25 +124,17 @@ def main(data):
         input("\nTekan ENTER untuk lanjut")
         system("cls")
 
-try:
-    system("cls")
-    parser = argparse.ArgumentParser(usage="python kantongajaib.py <nama_folder>") # Error messagenya masih belum custom
-    parser.add_argument("folder")
-    args = parser.parse_args()
 
-    if not validFolder(args.folder): # Folder harus ada di path Data/
-        print("Folder yang anda masukkan tidak ada!")
-        exit()
+system("cls")
+parser = argparse.ArgumentParser(usage="python kantongajaib.py <nama_folder>") # Error messagenya masih belum custom
+parser.add_argument("folder")
+args = parser.parse_args()
 
-    temp = loadData(args.folder) # Ngeload file dari folder yang dah dimasukin pas ngejalanin
-    # Catetan : ini nge load pake header, jadi kalau mau make, di slice dlu index 0nya
+if not validFolder(args.folder): # Folder harus ada di path Data/
+    print("Folder yang anda masukkan tidak ada!")
+    exit()
 
-    main(temp)
-except KeyboardInterrupt: # Bakal aktif kalau pake CTRL + C
-    # For some reason, ini bisa ngambil latest data dari variabel yang ada di main
-    # Jadi tolong jangan diapa2in xdd
+temp = loadData(args.folder) # Ngeload file dari folder yang dah dimasukin pas ngejalaninh
+# Catetan : ini nge load pake header, jadi kalau mau make, di slice dlu index 0nya
 
-    # Tapi sabi dicoba coba buat mainin CTRL + C terus save dan liat
-    # apa data yang dah dimasukin sebelum CTRL + C ikut ke save
-    data = temp
-    keluar(data, "key")
+main(temp)

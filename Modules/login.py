@@ -4,7 +4,7 @@ from Util import hash
 # if error = 1, it means that the password is incorrect
 
 def login(data):
-    users = data[1:]#''.join(data.loadData('Data/user.csv'))
+    users = data[1:]
     username = input('Masukan username : ')
     for user in users:
         if username == user[1] :
