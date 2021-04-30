@@ -38,12 +38,11 @@ def output (currentStart,currentEnd,data,idx_list):
         id_peminjam = getPeminjam(data,idx_list[i])
         print("Nama Pengambil: ", id_peminjam)
 
-        id_gadget = getGadget(data,idx_list[i])
-        print("Nama Gadget: ", id_gadget)
+        id_consumable = getConsumable(data,idx_list[i])
+        print("Nama Gadget: ", id_consumable)
 
         tanggal_pinjam = getDate(data,idx_list[i])
         print("Tanggal Peminjaman: ", tanggal_pinjam)
-        print("")
 
         jumlah = getTotal(data,idx_list[i])
         print("Jumlah: ", jumlah)
@@ -81,7 +80,7 @@ def getID (data,x):
 def getPeminjam (data,x):
     return data[x][1]
 
-def getComsumable (data,x):
+def getConsumable (data,x):
     return data[x][2]
 
 def getDate (data,x):
