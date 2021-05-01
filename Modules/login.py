@@ -9,7 +9,7 @@ def login(data):
     for user in users:
         if username == user[1] :
             if hash.Hash(input('Masukan password : ')) == user[4]:
-                print(f'\nHallo {user[1]}! Selamat datang di Kantong Ajaib')
+                print(f'\nHallo {user[2]}! Selamat datang di Kantong Ajaib')
                 return (user[0], user[5]) # ID, Role
             return ('1', '1') # Kenapa pake tuple juga?? biar gampang di notasi algoritmiknya
     return ('0', '0')

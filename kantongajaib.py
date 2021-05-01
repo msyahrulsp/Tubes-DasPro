@@ -124,7 +124,6 @@ def main(data):
         input("\nTekan ENTER untuk lanjut")
         system("cls")
 
-
 system("cls")
 parser = argparse.ArgumentParser(usage="python kantongajaib.py <nama_folder>") # Error messagenya masih belum custom
 parser.add_argument("folder")

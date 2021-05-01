@@ -8,19 +8,19 @@ def getAvaRarity(data):
     return temp
 
 def genChance(num, rarity, listChance):
-    multiplier = 0
+    multiplier = 12
     idx = 0
     if rarity == "B":
-        multiplier = 1
+        multiplier = 15
         idx = 1
     if rarity == "A":
-        multiplier = 2
+        multiplier = 18
         idx = 2
     if rarity == "S":
-        multiplier = 3
+        multiplier = 20
         idx = 3
 
-    chance = (num ** 2)/(1000 + (500*multiplier))
+    chance = ((num**2)*100)/((num**2)+(multiplier*35)*(num+100))
     if idx != 3:
         listChance[idx+1] += chance # Rarity lebih tinggi
     listChance[idx] += (3/2) * chance # Rarity sendiri
@@ -35,16 +35,14 @@ def random(modulus):
 
 def genRarity(chance):
     rarity = ["C", "B", "A", "S"]
-    
-    sum = 0
-    for i in range(len(chance)):
-        sum += chance[i]
 
-    rand = random(sum)
+    rand = random(100.00)
+
     for i in range(3, -1, -1):
-        if rand > 0 and rand <= chance[i]:
+        if rand >= 0 and rand <= chance[i]:
             return rarity[i]
-        rand -= chance[i]
+        sleep(1)
+        rand = random(100.00)
 
     return "Failed"
 
@@ -58,3 +56,9 @@ def getItem(data, rarity):
     rand = random(modulus)
 
     return temp[rand]
+
+def checkInvent(data, userid):
+    for i in range(len(data)):
+        if data[i][3] == userid:
+            return True
+    return False

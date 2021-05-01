@@ -2,6 +2,17 @@ import os
 from Util.split import split
 
 def load(filename):
+    # { I.S. : Menerima input filename }
+    # { F.S. : Data pada filename terload }
+
+    # KAMUS
+    # line : array of data
+    # temp : array of array of line
+    # f : SEQFILE of
+    #    (*) temp
+    #    (1) mark
+
+    # ALGORITMA
     # Load diganti dari sebelumnya karena banyak "\n" kalau pake readlines
     temp = [] 
     with open(filename, "r") as f:
@@ -11,7 +22,19 @@ def load(filename):
             temp.append(line)
     return temp # Include header
 
-def loadData(folder): # Masih ada problem tentang looping folder?
+def loadData(folder):
+    # { I.S. : Menerima input folder }
+    # { F.S. : Data pada folder terload }
+
+    # KAMUS
+    # line : array of data
+    # tempdata : array of array of line
+    # f : SEQFILE of
+    #    (*) tempdata
+    #    (1) mark
+    # files : array of string
+
+    # ALGORITMA
     tempdata = []
     files = ["consumable", "consumable_history", "deleted", "gadget", "gadget_borrow_history", "gadget_return_history", "inventory", "user"]
     for pep in files:
@@ -20,9 +43,16 @@ def loadData(folder): # Masih ada problem tentang looping folder?
     return tempdata # Matriks data data yang ada headernya
 
 def saveData(data):
+    # { I.S. : Menerima input folder }
+    # { F.S. : Data pada folder terload }
+
+    # KAMUS
+    # files : array of string
+    # folder : string
+
+    # ALGORITMA
     files = ["consumable", "consumable_history", "deleted", "gadget", "gadget_borrow_history", "gadget_return_history", "inventory", "user"]
-    # Buat sekarang, folder belum ada validasi buat format tertentu
-    folder = input("Masukkan nama folder penyimpanan: ") # Folder apa ada format tertenu??
+    folder = input("Masukkan nama folder penyimpanan: ")
 
     if not os.path.exists("./Data/%s" % folder):
         os.makedirs("./Data/%s" % folder)
