@@ -2,9 +2,19 @@ from Util.validasi import getId, validDate, validQty
 from Util.gadget import checkGadget, userGadget
 
 def borrowGadget(datagd, datah, userid):
+    # { I.S. : Menerima input data gadget, data history pinjam gadget dan id user}
+    # { F.S. : Menghasilkan entry tambahan pada history pinjam gadget dan mengurangi jumlah item pada gadget yang telah dipilih }
+
+    # KAMUS
+    # gadgetid, date, id : string
+    # idx, qty : integer
+
+    # ALGORITMA
+
     # datagd = list gadget
     # datah = list history borrow gadget
     # userid = ngambil dari hasil login
+
     gadgetid = input("Masukkan ID item: ")
 
     # Validasi buat gk bisa minjem item yang lagi dipinjem (masih belum di return full)
@@ -48,11 +58,22 @@ def borrowGadget(datagd, datah, userid):
     return datagd, datah
 
 def returnGadget(datag, datahb, datahr, deleted, userid):
+    # { I.S. : Menerima input data gadget, data history pinjam gadget, data reurn history gadget, deleted item, dan user id}
+    # { F.S. : Menghasilkan entry baru pada gadget (jika item yang dikembalikan telah didelete) atau menambahkan item ke gadget. Dan menambahkan entry
+    # pada return history dan mengubah is_returned pada borrow history }
+
+    # KAMUS
+    # listtempid : array of integer
+    # name, date, id, id_peminjaman, idx_borrow : string
+    # tempid, opt, idx, qty, n : integer
+
+    # ALGORITMA
     # datag = list gadget
     # datahb = list gadget borrow history
     # datahr = list gadget return history
     # deleted = list deleted item
     # userid = id dari user 
+
     pinjamList = userGadget(datahb, userid) # Ngeload gadget yang belum di return dari borrow_history
     listtempid = []
 

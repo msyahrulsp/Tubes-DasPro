@@ -37,7 +37,6 @@ rare : char
 year : Integer
 '''
 
-
 def addGadget(data,id):
     if search.searchByID(data,id):
         print(f"\nGagal menambahkan karena {id} sudah ada")

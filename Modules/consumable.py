@@ -1,11 +1,20 @@
 from Util.validasi import getId, validDate, validQty
 
 def getConsumable(datacs, datah, userid):
+    # { I.S. : Menerima input data consumable, data history minta consumable dan id user}
+    # { F.S. : Menghasilkan entry tambahan pada history minta consumable dan mengurangi jumlah item pada consumable yang telah dipilih }
+
+    # KAMUS
+    # consuid, date, id : string
+    # idx, qty : integer
+
+    # ALGORITMA
+
     # datacs = list consumable
     # datah = list history minta consumable
     # userid = ngambil dari hasil login
     consuid = input("Masukkan ID item: ")
-    idx = getId(datacs, consuid)
+    idx = getId(datacs, consuid) # Ngambil id consumable sesuai consuid
 
     if idx == -1:
         print("Consumable dengan ID tersebut tidak ada")
