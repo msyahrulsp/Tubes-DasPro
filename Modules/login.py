@@ -3,6 +3,15 @@ from Util import hash
 # if error = 0, it means the username is not registered in the database 
 # if error = 1, it means that the password is incorrect
 
+    # { I.S. : Menerima input data user
+    # { F.S. : Menghasilkan user session jike ternyata user memang terdaftar pada sistem kami }
+
+    # KAMUS
+    #users,data : array
+    # username,password : string
+
+    # ALGORITMA
+    
 def login(data):
     users = data[1:]
     username = input('Masukan username : ')

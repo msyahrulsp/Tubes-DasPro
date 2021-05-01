@@ -1,9 +1,25 @@
 from Util import hash
 
+'''
+fungsi ini mengembalikan true jika username yang diberikan memang unique
+'''
+
 def isUsernameUnique(username,data): 
     for x in data:
         if x[1] == username: return False
     return True
+
+
+
+    # { I.S. : Menerima input data user
+    # { F.S. : Mendaftarkan user pada sistem kami }
+
+    # KAMUS
+    #users,data : array
+    # username,password,alamat,uid : string
+
+    # ALGORITMA
+    #data : array of user
 
 def register(data): 
     mydata = data[1:]
