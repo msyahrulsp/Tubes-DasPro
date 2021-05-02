@@ -65,7 +65,7 @@ def output (currentStart,currentEnd,hist,user,consum,idx_list):
 
         id_consumable = getConsumable(hist,idx_list[i])
         nama_consumable = findConsumable(id_consumable, consum)
-        print("Nama Consumable: ", id_consumable)
+        print("Nama Consumable: ", nama_consumable)
 
         tanggal_pinjam = getDate(hist,idx_list[i])
         print("Tanggal Pengambilan: ", tanggal_pinjam)
