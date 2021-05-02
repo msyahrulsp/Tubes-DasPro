@@ -1,8 +1,8 @@
 import datetime
 
-def gadget_ret_hist (data):
-    # { I.S. : Menerima data dari file csv gadget_return_history dalam bentuk array }
-    # { F.S. : Mencetak data - data dalam file csv gadget_return_history yang sudah diurutkan menurut tanggal }
+def gadget_ret_hist (hist, user, gadget):
+    # { I.S. : Menerima data dari file csv gadget_return_history, user, dan gadget dalam bentuk array }
+    # { F.S. : Mencetak data - data yang diminta dan menanyakan apabila ingin menampilkan 5 data lagi }
 
     # KAMUS
     # date_sorted, idx_list : array
@@ -11,17 +11,17 @@ def gadget_ret_hist (data):
     # flagMain : boolean
 
     # ALGORITMA
-    if (len(data)) == 1:
+    if (len(hist)) == 1:
         print("Data masih kosong!")
     else:
-        date_sorted = sortDate(data)            # mengembalikan array dengan tanggal terurut dari besar ke kecil
-        idx_list = findIdx(data, date_sorted)   # mengembalikan array dengan indeks yang sesuai dengan tanggal
+        date_sorted = sortDate(hist)            # mengembalikan array dengan tanggal terurut dari besar ke kecil
+        idx_list = findIdx(hist, date_sorted)   # mengembalikan array dengan indeks yang sesuai dengan tanggal
         currentStart = 0                        # start awal loop selalu mulai dari 0
-        if ((len(data)) < 6):                   # jika panjang data < 6, maka currentEnd harus mengikuti panjang data kurang 1
+        if ((len(hist)) < 6):                   # jika panjang hist < 6, maka currentEnd harus mengikuti panjang idx_list
             currentEnd = len(idx_list)
         else:
-            currentEnd = 5                      # jika panjang data > 6 (artinya ada lebih data), currentEnd dimulai dari 5
-        output(currentStart,currentEnd,data,idx_list)
+            currentEnd = 5                      # jika panjang hist > 6 (artinya ada lebih data), currentEnd dimulai dari 5
+        output(currentStart,currentEnd,hist,user,gadget,idx_list)
 
         flagMain = True
         while flagMain:
@@ -43,55 +43,55 @@ def gadget_ret_hist (data):
                         currentEnd = len(idx_list)
                     else:                                   # jika nilai currentStart + 5 <= panjang idx_list, artinya indeks end akan ditambah 5, karena data masih lebih dari 5
                         currentEnd = currentEnd + 5         
-                output(currentStart,currentEnd,data,idx_list)
+                output(currentStart,currentEnd,hist,user,gadget,idx_list)
 
-def output (currentStart,currentEnd,data,idx_list):
-    # { I.S. : Menerima input currentStart, currentEnd, data, dan idx_list }
+def output (currentStart,currentEnd,hist,user,gadget,idx_list):
+    # { I.S. : Menerima input currentStart, currentEnd, hist, user, gadget dan idx_list }
     # { F.S. : Mengambil 5 data dari array yang sudah terurut dengan start dan end tertentu dan mencetaknya } 
 
     # KAMUS
-    # idx, id_peminjam, id_gadget, tanggal_pinjam, jumlah : string
-    # i : integer
-    # data : array
+    # idx, id_gadget, nama_gadget, tanggal_pinjam, jumlah : string
+    # i, id_peminjam : integer
+    # hist : array
 
     # ALGORITMA
     for i in range (currentStart,currentEnd):
-        idx = getID(data,idx_list[i])
-        print("ID Peminjaman: ", idx)
+        idx = getID(hist,idx_list[i])
+        print("ID Pengembalian: ", idx)
 
-        id_peminjam = getPeminjam(data,idx_list[i])
-        print("Nama Pengambil: ", id_peminjam)
+        id_pengambil = int(getPengambil(hist,idx_list[i]))
+        nama_pengambil = user[id_pengambil][2]
+        print("Nama Pengambil: ", nama_pengambil)
 
-        id_gadget = getGadget(data,idx_list[i])
-        print("Nama Gadget: ", id_gadget)
+        tanggal_kembali = getDate(hist,idx_list[i])
+        print("Tanggal Pengembalian: ", tanggal_kembali)
 
-        tanggal_pinjam = getDate(data,idx_list[i])
-        print("Tanggal Peminjaman: ", tanggal_pinjam)
+        jumlah = getTotal(hist,idx_list[i])
+        print("Jumlah: ", jumlah)
         print("")
 
-def sortDate (data):
+def sortDate (hist):
     # { I.S. : Menerima input data }
     # { F.S. : Mengisi sebuah array baru 'date_sorted' yang berisi tanggal terurut } 
 
     # KAMUS
-    # date_sorted : array
+    # date_sorted, hist : array
     # i : integer
-    # data : array
 
     # ALGORITMA
     date_sorted = []
-    for i in range (1, len(data)):
-        date_sorted.append(data[i][3])
+    for i in range (1, len(hist)):
+        date_sorted.append(hist[i][2])
         date_sorted.sort(key=lambda date: datetime.datetime.strptime(date, '%d/%m/%Y')) # pengurutan dilakukan dari tanggal yang paling kecil
         date_sorted.reverse()   # membalikkan urutan array 'date_sorted'
     return date_sorted
     
-def findIdx (data, date):
+def findIdx (hist, date):
     # { I.S. : Menerima input data dan array date }
     # { F.S. : Mencari indeks dari tanggal tertentu dan memasukkannya ke dalam array idx_list }
 
     # KAMUS
-    # idx_list, date, data : array
+    # idx_list, date, hist : array
     # i, j, k : integer
     # flag : boolean
 
@@ -101,17 +101,17 @@ def findIdx (data, date):
     j = 1
     k = 0
     while flag:
-        if (date[k] == data[j][3]) and (k < (len(date))):   # jika tanggal pada array 'date' sama dengan tanggal pada array 'data' dan nilai k < panjang array 'date'
+        if (date[k] == hist[j][2]) and (k < (len(date))):   # jika tanggal pada array 'date' sama dengan tanggal pada array 'hist' dan nilai k < panjang array 'date'
             idx_list.append(j)
             k += 1
             j = 0
-            if len(idx_list) == len(date):  # jika panjang array 'idx_list' sudah sepanjang dengan array 'date', berarti semua data sudah diproses dan dicari indeksnya
+            if len(idx_list) == len(date):  # jika panjang array 'idx_list' sudah sepanjang dengan array 'date', berarti semua hist sudah diproses dan dicari indeksnya
                 flag = False
         else: 
             j += 1
     return idx_list
     
-def getID (data,x):
+def getID (hist,x):
     # { I.S. : Menerima input data dan integer x }
     # { F.S. : Mengambil data di baris x dan kolom 1 }
 
@@ -120,9 +120,9 @@ def getID (data,x):
     # x : integer
 
     # ALGORITMA
-    return data[x][0]
+    return hist[x][0]
 
-def getPeminjam (data,x):
+def getPengambil (hist,x):
     # { I.S. : Menerima input data dan integer x }
     # { F.S. : Mengambil data di baris x dan kolom 2 }
 
@@ -131,9 +131,9 @@ def getPeminjam (data,x):
     # x : integer
 
     # ALGORITMA
-    return data[x][1]
+    return hist[x][1]
 
-def getGadget (data,x):
+def getDate (hist,x):
     # { I.S. : Menerima input data dan integer x }
     # { F.S. : Mengambil data di baris x dan kolom 3 }
 
@@ -142,9 +142,9 @@ def getGadget (data,x):
     # x : integer
 
     # ALGORITMA
-    return data[x][2]
+    return hist[x][2]
 
-def getDate (data,x):
+def getTotal (hist,x):
     # { I.S. : Menerima input data dan integer x }
     # { F.S. : Mengambil data di baris x dan kolom 4 }
 
@@ -153,4 +153,4 @@ def getDate (data,x):
     # x : integer
 
     # ALGORITMA
-    return data[x][3]
+    return hist[x][3]
