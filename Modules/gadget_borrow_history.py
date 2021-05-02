@@ -29,13 +29,13 @@ def gadget_bor_hist (hist, user, gadget):
             if userPref == "n":
                 flagMain = False
             else:
-                if (currentStart >= (len(idx_list)-1)):     # indeks start awal lebih atau sama dengan panjang array 'idx_list'-1
+                if (currentStart >= (len(idx_list))):     # indeks start awal lebih atau sama dengan panjang array 'idx_list'
                     print("Data sudah habis!")              # data akan habis jika syarat tersebut terpenuhi
                     flagMain = False
                 else:
                     currentStart += 5                       # indeks start akan selalu ditambah 5
 
-                if (currentEnd >= (len(idx_list)-1)):       # indeks end akhir lebih atau sama dengan panjang data 'idx_list'-1
+                if (currentEnd >= (len(idx_list))):       # indeks end akhir lebih atau sama dengan panjang data 'idx_list'
                     print("Data sudah habis!")              # data akan habis jika syarat tersebut terpenuhi
                     flagMain = False
                 else:  
