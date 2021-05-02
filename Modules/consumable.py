@@ -39,7 +39,7 @@ def getConsumable(datacs, datah, invent, userid):
                 if len(datah)-1 == 0:
                     id = "1"
                 else:
-                    id = str(int(datah[len(datah)-1][0] + 1))
+                    id = str(int(datah[len(datah)-1][0]) + 1)
 
                 print("\nItem %s (x%s) telah berhasil diambil!" % (datacs[idx][1], qty))
                 datacs[idx][3] = str(int(datacs[idx][3]) - int(qty)) # Ngurangin jumlah di consumable
@@ -49,7 +49,7 @@ def getConsumable(datacs, datah, invent, userid):
                 if len(invent)-1 == 0:
                     id = "1"
                 else:
-                    id = str(int(invent[len(invent)-1][0] + 1))
+                    id = str(int(invent[len(invent)-1][0]) + 1)
                 consuname = datacs[idx][1] # Nama consumable
                 rarity = datacs[idx][4] # Rarity
                 invent.append([id, consuid, consuname, userid, rarity, qty])
