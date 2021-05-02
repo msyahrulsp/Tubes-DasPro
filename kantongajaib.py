@@ -27,7 +27,7 @@ def main(data):
             input('Tekan Enter untuk melanjutkan')
         if role == "nouser":
             print("Selamat datang di program kami, silakan ketik 'help' atau 'login'")
-
+        else: print('Ketik "help" untuk menunjukan menu')
         cmd = input(">>> ").lower().replace(" ", "").replace("_", "")
 
         if validCmd(cmd, role) == 2: # User punya akses ke cmd
