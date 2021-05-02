@@ -88,7 +88,7 @@ def main(data):
                 gadget, gadget_b_hist, gadget_r_hist, deleted = returnGadget(gadget, gadget_b_hist, gadget_r_hist, deleted, id)
 
             elif (cmd == "minta"):
-                consumable, consumable_hist = getConsumable(consumable, consumable_hist, id)
+                consumable, consumable_hist, inventory = getConsumable(consumable, consumable_hist, inventory, id)
 
             elif (cmd == "riwayatpinjam"):
                 gadget_bor_hist(gadget_b_hist)

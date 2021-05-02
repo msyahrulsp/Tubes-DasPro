@@ -1,6 +1,6 @@
 from Util.validasi import getId, validDate, validQty
 
-def getConsumable(datacs, datah, userid):
+def getConsumable(datacs, datah, invent, userid):
     # { I.S. : Menerima input data consumable, data history minta consumable dan id user}
     # { F.S. : Menghasilkan entry tambahan pada history minta consumable dan mengurangi jumlah item pada consumable yang telah dipilih }
 
@@ -45,4 +45,13 @@ def getConsumable(datacs, datah, userid):
                 datacs[idx][3] = str(int(datacs[idx][3]) - int(qty)) # Ngurangin jumlah di consumable
                 datah.append([id, userid, consuid, date, qty]) # Nambah ke variabel cons history
 
-    return datacs, datah
+                # Auto id buat invent
+                if len(invent)-1 == 0:
+                    id = "1"
+                else:
+                    id = str(int(invent[len(invent)-1][0] + 1))
+                consuname = datacs[idx][1] # Nama consumable
+                rarity = datacs[idx][4] # Rarity
+                invent.append([id, consuid, consuname, userid, rarity, qty])
+
+    return datacs, datah, invent

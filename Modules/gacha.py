@@ -36,9 +36,9 @@ def gacha(invent, datac, datah, userid):
             count = 0
             tempidx = []
             for i in range(1, len(invent)):
-                if invent[i][1][0] == "C" and invent[i][3] == userid and invent[i][6] != '0':
+                if invent[i][1][0] == "C" and invent[i][3] == userid and invent[i][5] != '0':
                     count += 1
-                    print("%d. %s (Rarity %s) (%s)" % (count, invent[i][2], invent[i][5], invent[i][6]))
+                    print("%d. %s (Rarity %s) (%s)" % (count, invent[i][2], invent[i][4], invent[i][5]))
                     tempidx.append(i)
 
             if count == 0:
@@ -65,12 +65,12 @@ def gacha(invent, datac, datah, userid):
 
                 # Ngurangin sementara, why?
                 # Safecase buat rarity yang didapat dari gacha gk ada di consumable
-                invent[idx][6] = str(int(invent[idx][6]) - qty)
+                invent[idx][5] = str(int(invent[idx][5]) - qty)
 
                 # Index di inventory, qty dari input
                 item.append([idx, qty])
 
-                chance = genChance(qty, invent[idx][5], chance) # Generate chance
+                chance = genChance(qty, invent[idx][4], chance) # Generate chance
                 rare = ["C", "B", "A", "S"]
                 for i in range(4):
                     print("Chance mendapatkan Rarity %s = %.2f%%" % (rare[i], chance[i]))
@@ -124,9 +124,9 @@ def gacha(invent, datac, datah, userid):
                 n = item[i][1]
 
             if refund:
-                invent[idx][6] = str(int(invent[idx][6]) + n)
+                invent[idx][5] = str(int(invent[idx][6]) + n)
                 
-            if invent[idx][6] == '0':
+            if invent[idx][5] == '0':
                 invent.pop(idx)
 
     return invent, datac, datah
