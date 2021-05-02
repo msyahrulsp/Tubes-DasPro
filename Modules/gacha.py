@@ -57,7 +57,7 @@ def gacha(invent, datac, datah, userid):
                 idx = tempidx[opt-1]
 
                 qty = int(input("Jumlah yang digunakan: "))
-                while (qty < 0) or (qty > int(invent[idx][6])):
+                while (qty < 0) or (qty > int(invent[idx][5])):
                     print("\nInput invalid")
                     qty = int(input("\nJumlah yang digunakan: "))
 
@@ -124,7 +124,7 @@ def gacha(invent, datac, datah, userid):
                 n = item[i][1]
 
             if refund:
-                invent[idx][5] = str(int(invent[idx][6]) + n)
+                invent[idx][5] = str(int(invent[idx][5]) + n)
                 
             if invent[idx][5] == '0':
                 invent.pop(idx)
