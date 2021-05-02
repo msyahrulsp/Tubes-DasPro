@@ -90,16 +90,16 @@ def main(data):
                 gadget, gadget_b_hist, gadget_r_hist, deleted = returnGadget(gadget, gadget_b_hist, gadget_r_hist, deleted, id)
 
             elif (cmd == "minta"):
-                consumable, consumable_hist = getConsumable(consumable, consumable_hist, id)
+                consumable, consumable_hist, inventory = getConsumable(consumable, consumable_hist, inventory, id)
 
             elif (cmd == "riwayatpinjam"):
-                gadget_bor_hist(gadget_b_hist)
+                gadget_bor_hist(gadget_b_hist, user, gadget)
 
             elif (cmd == "riwayatkembali"):
-                gadget_ret_hist(gadget_r_hist)
+                gadget_ret_hist(gadget_r_hist, user, gadget)
 
             elif (cmd == "riwayatambil"):
-                consum_hist(consumable_hist)
+                consum_hist(consumable_hist, user, consumable)
 
             elif (cmd == "save"):
                 data = [consumable, consumable_hist, deleted, gadget, gadget_b_hist, gadget_r_hist, inventory, user]
