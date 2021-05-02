@@ -128,5 +128,7 @@ def gacha(invent, datac, datah, userid):
                 
             if invent[idx][5] == '0':
                 invent.pop(idx)
+                for j in range(i+1, len(item)):
+                    item[j][0] -= 1
 
     return invent, datac, datah
