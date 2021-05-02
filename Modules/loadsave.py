@@ -1,6 +1,8 @@
 import os
 from Util.split import split
 
+types = ["consumable", "consumable_history", "deleted", "gadget", "gadget_borrow_history", "gadget_return_history", "inventory", "user"]
+
 def load(filename):
     # { I.S. : Menerima input filename }
     # { F.S. : Data pada filename terload }
@@ -36,26 +38,15 @@ def loadData(folder):
 
     # ALGORITMA
     tempdata = []
-    files = ["consumable", "consumable_history", "deleted", "gadget", "gadget_borrow_history", "gadget_return_history", "inventory", "user"]
-    for pep in files:
+    for pep in types:
         a = load(f"./Data/{folder}/{pep}.csv")
         tempdata.append(a)
     return tempdata # Matriks data data yang ada headernya
 
-def make_folder(folder_name,path = 'Data'):
-    n = 0
-    saved_folders = []
-    for branch in os.walk('Saved Data', topdown=True):
-        while n!=1 :
-            saved_folders = branch[1]
-            n = 1
-    found = False
-    for i in range(len(saved_folders)):
-        if saved_folders[i] == folder_name:
-            found = True
-    if found == False:
-        os.mkdir(f"./{path}/"+folder_name)
-
+def saveIt(datas,path):
+    with open(path,'w') as f:
+        [f.write(';'.join(map(str,data)) + '\n') for data in datas]
+    f.close()
 
 def saveData(data):
     # { I.S. : Menerima input folder }
@@ -66,20 +57,15 @@ def saveData(data):
     # folder : string
 
     # ALGORITMA
-    files = ["consumable", "consumable_history", "deleted", "gadget", "gadget_borrow_history", "gadget_return_history", "inventory", "user"]
     folder = input("Masukkan nama folder penyimpanan: ")
 
     if not os.path.exists("./Data/%s" % folder):
         os.makedirs("./Data/%s" % folder)
 
-    print("Saving...")
 
-    for i in range(len(files)): # Saving ke respective filenya
-        path = "./Data/%s/%s.csv" % (folder, files[i])
-        with open(path, "w") as f:
-            for x in data[i]:
-                temp = ";".join(map(str, x))
-                f.write(temp)
-                f.write("\n")
+    for i in range(len(types)): # Saving ke respective filenya
+        print(f"Saving {types[i]}")
+        saveIt(data[i],"./Data/%s/%s.csv" % (folder, types[i]))
 
     print("Data telah disimpan pada folder %s!" % folder)
+
