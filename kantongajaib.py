@@ -23,6 +23,8 @@ def main(data):
     role = "nouser"
 
     while True:
+        if role != "nouser":
+            input('Tekan Enter untuk melanjutkan')
         if role == "nouser":
             print("Selamat datang di program kami, silakan ketik 'help' atau 'login'")
 

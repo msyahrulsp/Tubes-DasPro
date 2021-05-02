@@ -40,4 +40,5 @@ def register(data):
     password = hash.Hash(input('Masukan password : '))
     alamat = input('Masukan alamat : ')
     print(f'\nUser {username} telah berhasil register ke dalam Kantong Ajaib')
+    input('Tekan enter untuk melanjutkan')
     return([uid, username, nama, alamat, password, "user"])

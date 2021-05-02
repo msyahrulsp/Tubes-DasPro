@@ -42,6 +42,21 @@ def loadData(folder):
         tempdata.append(a)
     return tempdata # Matriks data data yang ada headernya
 
+def make_folder(folder_name,path = 'Data'):
+    n = 0
+    saved_folders = []
+    for branch in os.walk('Saved Data', topdown=True):
+        while n!=1 :
+            saved_folders = branch[1]
+            n = 1
+    found = False
+    for i in range(len(saved_folders)):
+        if saved_folders[i] == folder_name:
+            found = True
+    if found == False:
+        os.mkdir(f"./{path}/"+folder_name)
+
+
 def saveData(data):
     # { I.S. : Menerima input folder }
     # { F.S. : Data pada folder terload }

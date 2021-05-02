@@ -59,7 +59,7 @@ def delItem(data, id, type):
             return item
 
     print(f"\nTidak ada item dengan id: {id}")
-
+    
     if type == "gadget":
         return item, deleted
     return item
