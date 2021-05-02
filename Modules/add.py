@@ -52,7 +52,7 @@ def addGadget(data,id):
         print("\nInput rarity tidak valid!")
         return data
     year = input("Masukan Tahun Ditemukan: ")
-    if checkInteger(year) is False or int(year<0):
+    if checkInteger(year) is False or int(year)<0:
         print("Tahun tidak valid")
         return data
     print('\nItem telah berhasil ditambahkan ke database')
